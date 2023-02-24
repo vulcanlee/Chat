@@ -1,5 +1,6 @@
 using Business.Helpers;
 using BusinessHelpers;
+using Chat.Api.Hubs;
 using CommonDomainLayer.Configurations;
 using CommonDomainLayer.Magics;
 using DataTransferObject.Dtos;
@@ -134,6 +135,10 @@ try
 
     #endregion
 
+    #region 註冊 SignalR 需要用到的服務
+    builder.Services.AddSignalR();
+    #endregion
+
     #endregion
 
     var app = builder.Build();
@@ -228,6 +233,11 @@ try
     #endregion
 
     #region 將端點執行新增至中介軟體管線
+
+    #region 宣告 SignalR 要用到的路由
+    app.MapHub<MyChatHub>("/myChatHub");
+    #endregion
+
     app.MapRazorPages();
     app.MapControllers();
     app.MapFallbackToFile("index.html");

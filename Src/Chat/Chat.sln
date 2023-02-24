@@ -7,17 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Api", "Chat.Api\Server
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Client", "Chat.Api\Client\Chat.Client.csproj", "{7C3E4164-46B6-48BA-AE92-017361E6924B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTransferObject", "DataTransferObject\DataTransferObject.csproj", "{651ACE6C-3D26-40FA-8B0E-F6E182502FD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferObject", "DataTransferObject\DataTransferObject.csproj", "{651ACE6C-3D26-40FA-8B0E-F6E182502FD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainData", "DomainData\DomainData.csproj", "{78B9E3D5-FF67-4DDB-B267-ADED7B07DEFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainData", "DomainData\DomainData.csproj", "{78B9E3D5-FF67-4DDB-B267-ADED7B07DEFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDomain", "CommonDomain\CommonDomain.csproj", "{68A12E8C-A1A5-46EF-95D9-9973C9346B8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonDomain", "CommonDomain\CommonDomain.csproj", "{68A12E8C-A1A5-46EF-95D9-9973C9346B8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{E00E8A3E-1162-4A06-AF2F-9F2740F5CDE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{E00E8A3E-1162-4A06-AF2F-9F2740F5CDE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{E75B4FDF-76E5-4F3E-A41B-62ED8992FF31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{E75B4FDF-76E5-4F3E-A41B-62ED8992FF31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{932CE19F-CCA0-4E58-8A68-C3C9770702E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{932CE19F-CCA0-4E58-8A68-C3C9770702E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
