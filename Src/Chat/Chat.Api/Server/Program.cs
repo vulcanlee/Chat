@@ -34,6 +34,11 @@ try
     builder.Services.AddRazorPages();
     #endregion
 
+    #region Swagger 會用到的服務
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    #endregion
+
     #region 註冊本專案會用到的客製服務
     builder.Services.AddTransient<IMyUserService, MyUserService>();
     builder.Services.AddTransient<JwtGenerateHelper>();
@@ -186,8 +191,8 @@ try
         app.UseWebAssemblyDebugging();
 
         #region 啟用 Swagger 中介軟體
-        //app.UseSwagger();
-        //app.UseSwaggerUI();
+        app.UseSwagger();
+        app.UseSwaggerUI();
         #endregion
     }
     else
