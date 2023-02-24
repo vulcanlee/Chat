@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\Chat..Client.csproj" />
+    <ProjectReference Include="..\..\Business\Business.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Client\Chat.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
