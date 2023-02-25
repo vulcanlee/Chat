@@ -40,6 +40,7 @@ public class User
     [Required(ErrorMessage = "名稱 不可為空白")]
     public string Name { get; set; } = String.Empty;
     public string? Salt { get; set; }
+    public string PhoneNumber { get; set; } = String.Empty;
     public bool Status { get; set; }
     public string PhotoFileName { get; set; } = "emoji1.png";
     public DateTime? CreateAt { get; set; }

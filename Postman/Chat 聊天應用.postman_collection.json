@@ -337,12 +337,75 @@
 			]
 		},
 		{
-			"name": "Login 使用者登入 User",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "開發用 - 資料庫初始化",
+			"item": [
+				{
+					"name": "資料庫建立、初始化",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/DBInit",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"DBInit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OTP認證",
+			"item": [
+				{
+					"name": "取得手機驗證碼",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/Otp/0987654321",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"Otp",
+								"0987654321"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "使用手機、驗證碼進行登入",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/Otp/Login/0987654321/7134",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"Otp",
+								"Login",
+								"0987654321",
+								"7134"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

@@ -45,6 +45,7 @@ try
 
     #region 註冊本專案會用到的客製服務
     builder.Services.AddTransient<IUserService, UserService>();
+    builder.Services.AddTransient<IOtpService, OtpService>();
     builder.Services.AddTransient<JwtGenerateHelper>();
     builder.Services.AddTransient<DatabaseInitService>();
     #endregion
