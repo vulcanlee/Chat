@@ -45,7 +45,7 @@ public class OtpService : IOtpService
             PhoneNumber = phoneNumber,
             CreateAt = DateTime.Now,
             Used = false,
-            VerifyCode = verifyCode, 
+            VerifyCode = verifyCode,
         };
 
         await context.OtpVerifyHistory.AddAsync(otpVerifyHistory);
@@ -60,7 +60,7 @@ public class OtpService : IOtpService
     {
         var checkUser = context.User
             .AsNoTracking()
-            .FirstOrDefault(x =>x.PhoneNumber == phoneNumber);
+            .FirstOrDefault(x => x.PhoneNumber == phoneNumber);
         await Task.Yield();
         if (checkUser == null)
         {
@@ -73,6 +73,7 @@ public class OtpService : IOtpService
                 Salt = "",
                 Status = true,
                 PhotoFileName = "",
+                UserType = CommonDomain.Enums.UserTypeEnum.OTP,
             };
             context.User.Add(user);
             await context.SaveChangesAsync();
@@ -99,7 +100,7 @@ public class OtpService : IOtpService
             return $"沒有發現 {phoneNumber} 可用驗證碼，請重新進行 OTP 驗證";
         }
 
-        otpVerifyHistory.Used= true;
+        otpVerifyHistory.Used = true;
         context.OtpVerifyHistory.Update(otpVerifyHistory);
         await context.SaveChangesAsync();
 

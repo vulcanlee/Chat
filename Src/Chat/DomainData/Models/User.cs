@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CommonDomain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace DomainData.Models;
 
@@ -43,6 +44,7 @@ public class User
     public string PhoneNumber { get; set; } = String.Empty;
     public bool Status { get; set; }
     public string PhotoFileName { get; set; } = "emoji1.png";
+    public UserTypeEnum UserType { get; set; } = UserTypeEnum.LOCAL;
     public DateTime? CreateAt { get; set; }
     public DateTime? UpdateAt { get; set; }
 }
