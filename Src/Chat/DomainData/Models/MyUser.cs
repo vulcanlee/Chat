@@ -9,7 +9,7 @@ public class User
 {
     public static List<User> GetMyUsers()
     {
-        List<User> myUsers = new List<User>()
+        List<User> Users = new List<User>()
         {
             new User()
             {
@@ -26,7 +26,7 @@ public class User
                 Name= "Emily"
             }
         };
-        return myUsers;
+        return Users;
     }
     public User()
     {

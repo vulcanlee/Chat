@@ -18,14 +18,14 @@ namespace Chat.Api.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IUserService myUserService;
+        private readonly IUserService userService;
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
-        public LoginController(IUserService myUserService,
+        public LoginController(IUserService userService,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
         {
-            this.myUserService = myUserService;
+            this.userService = userService;
             this.jwtGenerateHelper = jwtGenerateHelper;
             this.jwtConfiguration = jwtConfiguration.Value;
         }
@@ -45,7 +45,7 @@ namespace Chat.Api.Controllers
             }
 
             (User user, string message) =
-                await myUserService.CheckUserAsync(loginRequestDTO.Account,
+                await userService.CheckUserAsync(loginRequestDTO.Account,
                 loginRequestDTO.Password);
 
             if (user == null)
@@ -115,7 +115,7 @@ namespace Chat.Api.Controllers
                 Account = User.FindFirst(ClaimTypes.Sid)?.Value,
             };
 
-            User user = await myUserService.GetAsync(Convert.ToInt32(loginRequestDTO.Account));
+            User user = await userService.GetAsync(Convert.ToInt32(loginRequestDTO.Account));
             if (user.Id == 0)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false, StatusCodes.Status401Unauthorized,
