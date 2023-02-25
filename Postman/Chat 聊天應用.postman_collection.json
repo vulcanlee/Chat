@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "e8c10551-d477-4ad6-80e8-d219301169d4",
+		"name": "Chat 聊天應用",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "362711"
+	},
+	"item": [
+		{
+			"name": "認證與授權",
+			"item": [
+				{
+					"name": "Login 使用者登入 User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Account\" :\"user1\",\r\n    \"password\" : \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/Login",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login 使用者登入 Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Account\" :\"god\",\r\n    \"Password\" :\"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/Login",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken 更新權杖",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{RefreshToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/login/RefreshToken",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"login",
+								"RefreshToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OnlyAdministrator",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/OnlyAdministrator",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"OnlyAdministrator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OnlyUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/OnlyUser",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"OnlyUser"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "使用者",
+			"item": [
+				{
+					"name": "Retrive 所有使用者",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/myuser",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"myuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive 特定使用者",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/myuser/30",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"myuser",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post 新增使用者",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"Id\": 0,\r\n            \"Account\": \"userXXXX\",\r\n            \"Password\": \"pw\",\r\n            \"Name\": \"userXXXX\",\r\n            \"DepartmentName\": null,\r\n            \"ManagerId\": 1,\r\n            \"IsManager\": false,\r\n            \"ManagerName\": null,\r\n            \"IsManagerString\": \"否\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/myuser",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"myuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put 修改使用者",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"Id\": 30,\r\n            \"Account\": \"userQQQQ\",\r\n            \"Password\": \"pw\",\r\n            \"Name\": \"userQQQQQ\",\r\n            \"DepartmentName\": null,\r\n            \"ManagerId\": 3,\r\n            \"IsManager\": false,\r\n            \"ManagerName\": \"user1\",\r\n            \"IsManagerString\": \"否\"\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/myuser/30",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"myuser",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 刪除使用者",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/myuser/11",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"myuser",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login 使用者登入 User",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "RefreshToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "Host",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

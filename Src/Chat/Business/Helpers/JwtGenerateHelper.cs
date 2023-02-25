@@ -9,7 +9,7 @@ namespace Business.Helpers;
 
 public class JwtGenerateHelper
 {
-    public string GenerateAccessToken(MyUser user, List<Claim> claims,
+    public string GenerateAccessToken(User user, List<Claim> claims,
         JwtConfiguration jwtConfiguration)
     {
         var token = new JwtSecurityToken
@@ -28,7 +28,7 @@ public class JwtGenerateHelper
         return tokenString;
     }
 
-    public string GenerateRefreshToken(MyUser user, List<Claim> claims,
+    public string GenerateRefreshToken(User user, List<Claim> claims,
         JwtConfiguration jwtConfiguration)
     {
         var token = new JwtSecurityToken

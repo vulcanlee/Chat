@@ -348,3 +348,9 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+
+# 排除 SQLite 除厝時期產生的檔案
+/Src/Chat/Chat.Api/Chat.db
+/Src/Chat/Chat.Api/Chat.db-wal
+/Src/Chat/Chat.Api/Chat.db-shm

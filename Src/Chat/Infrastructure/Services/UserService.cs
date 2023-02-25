@@ -4,29 +4,29 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
 
-public class MyUserService : IMyUserService
+public class UserService : IUserService
 {
-    private readonly ILogger<MyUserService> logger;
+    private readonly ILogger<UserService> logger;
     #region 欄位與屬性
     #endregion
 
     #region 建構式
-    public MyUserService(ILogger<MyUserService> logger)
+    public UserService(ILogger<UserService> logger)
     {
         this.logger = logger;
     }
     #endregion
 
     #region 其他服務方法
-    public async Task<MyUser> GetAsync(int id)
+    public async Task<User> GetAsync(int id)
     {
-        List<MyUser> users = MyUser.GetMyUsers();
+        List<User> users = User.GetMyUsers();
         var checkUser = users.FirstOrDefault(x =>
         x.Id == id);
         await Task.Yield();
         if (checkUser == null)
         {
-            return new MyUser();
+            return new User();
         }
         else
         {
@@ -34,10 +34,10 @@ public class MyUserService : IMyUserService
         }
 
     }
-    public async Task<(MyUser, string)>
+    public async Task<(User, string)>
         CheckUserAsync(string account, string password)
     {
-        List<MyUser> users = MyUser.GetMyUsers();
+        List<User> users = User.GetMyUsers();
         var checkUser = users.FirstOrDefault(x =>
         x.Account.ToLower() == account.ToLower() &&
         x.Password == password);

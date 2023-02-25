@@ -1,15 +1,18 @@
 using Business.Helpers;
 using BusinessHelpers;
 using Chat.Api.Hubs;
+using CommonDomain.Configurations;
 using CommonDomainLayer.Configurations;
 using CommonDomainLayer.Magics;
 using DataTransferObject.Dtos;
+using DomainData.Models;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -41,7 +44,7 @@ try
     #endregion
 
     #region 註冊本專案會用到的客製服務
-    builder.Services.AddTransient<IMyUserService, MyUserService>();
+    builder.Services.AddTransient<IUserService, UserService>();
     builder.Services.AddTransient<JwtGenerateHelper>();
     #endregion
 
@@ -50,6 +53,36 @@ try
         .GetSection(MagicObject.SectionNameOfCustomNLogConfiguration));
     builder.Services.Configure<JwtConfiguration>(builder.Configuration
         .GetSection(MagicObject.SectionNameOfJwtConfiguration));
+    builder.Services.Configure<ConnectionStringConfiguration>(builder.Configuration
+        .GetSection(MagicObject.SectionNameOfConnectionStringConfiguration));
+    builder.Services.Configure<ChatSystemAssistantConfiguration>(builder.Configuration
+        .GetSection(MagicObject.SectionNameOfChatSystemAssistantConfiguration));
+    #endregion
+
+    #region EF Core & AutoMapper 使用的宣告
+    ConnectionStringConfiguration connectionStringConfiguration =
+        builder.Services.BuildServiceProvider()
+        .GetRequiredService<IOptions<ConnectionStringConfiguration>>()
+        .Value;
+    ChatSystemAssistantConfiguration chatSystemAssistantConfiguration =
+        builder.Services.BuildServiceProvider()
+        .GetRequiredService<IOptions<ChatSystemAssistantConfiguration>>()
+        .Value;
+
+    if (chatSystemAssistantConfiguration.UseSQLite == false)
+    {
+        builder.Services.AddDbContext<ChatDBContext>(options =>
+        options.UseSqlServer(connectionStringConfiguration.ChatDefaultConnection),
+        ServiceLifetime.Transient);
+    }
+    else
+    {
+        builder.Services.AddDbContext<ChatDBContext>(options =>
+        options.UseSqlite(connectionStringConfiguration.ChatSQLiteDefaultConnection),
+        ServiceLifetime.Transient);
+    }
+
+    builder.Services.AddAutoMapper(c => c.AddProfile<AutoMapping>());
     #endregion
 
     #region 加入使用 Cookie & JWT 認證需要的宣告

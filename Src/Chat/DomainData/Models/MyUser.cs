@@ -5,20 +5,20 @@ namespace DomainData.Models;
 /// <summary>
 /// 使用者
 /// </summary>
-public class MyUser
+public class User
 {
-    public static List<MyUser> GetMyUsers()
+    public static List<User> GetMyUsers()
     {
-        List<MyUser> myUsers = new List<MyUser>()
+        List<User> myUsers = new List<User>()
         {
-            new MyUser()
+            new User()
             {
                 Id = 1,
                 Account = "Tom",
                 Password = "123",
                 Name= "Tom"
             },
-            new MyUser()
+            new User()
             {
                 Id = 2,
                 Account = "Emily",
@@ -28,7 +28,7 @@ public class MyUser
         };
         return myUsers;
     }
-    public MyUser()
+    public User()
     {
     }
 

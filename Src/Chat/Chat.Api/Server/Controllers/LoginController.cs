@@ -18,11 +18,11 @@ namespace Chat.Api.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IMyUserService myUserService;
+        private readonly IUserService myUserService;
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
-        public LoginController(IMyUserService myUserService,
+        public LoginController(IUserService myUserService,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
         {
             this.myUserService = myUserService;
@@ -41,10 +41,10 @@ namespace Chat.Api.Controllers
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
                     StatusCodes.Status200OK,
                     "傳送過來的資料有問題");
-                return Ok(apiResult);
+                return BadRequest(apiResult);
             }
 
-            (MyUser user, string message) =
+            (User user, string message) =
                 await myUserService.CheckUserAsync(loginRequestDTO.Account,
                 loginRequestDTO.Password);
 
@@ -115,7 +115,7 @@ namespace Chat.Api.Controllers
                 Account = User.FindFirst(ClaimTypes.Sid)?.Value,
             };
 
-            MyUser user = await myUserService.GetAsync(Convert.ToInt32(loginRequestDTO.Account));
+            User user = await myUserService.GetAsync(Convert.ToInt32(loginRequestDTO.Account));
             if (user.Id == 0)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false, StatusCodes.Status401Unauthorized,

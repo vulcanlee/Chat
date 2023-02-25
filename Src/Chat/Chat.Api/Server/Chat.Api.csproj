@@ -21,5 +21,9 @@
 		<ProjectReference Include="..\Client\Chat.Client.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
+	</ItemGroup>
+
 
 </Project>
