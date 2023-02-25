@@ -131,9 +131,6 @@ namespace Infrastructure.Services
             OnUpdateMessage(Msg);
         }
 
-        #region 建立測試紀錄
-        #endregion
-
         #region 建立相關紀錄
         private async Task 建立使用者紀錄Async(string InitializationMode)
         {
@@ -148,6 +145,7 @@ namespace Infrastructure.Services
                 Name = $"開發者",
                 Status = true,
                 Salt = Guid.NewGuid().ToString(),
+                CreateAt= DateTime.Now,
             };
 
             myUser.Salt = Guid.NewGuid().ToString();
@@ -168,6 +166,7 @@ namespace Infrastructure.Services
                 Name = $"系統管理員 {MagicObject.系統管理員帳號}",
                 Status = true,
                 Salt = Guid.NewGuid().ToString(),
+                CreateAt= DateTime.Now,
             };
             var adminRawPassword = "123";
             adminMyUser.Password =
@@ -182,6 +181,7 @@ namespace Infrastructure.Services
             if (InitializationMode == "開發模式")
             {
                 #region 建立 使用者
+                int photoIndex = 2;
                 foreach (var item in MagicObject.使用者帳號)
                 {
                     var itemMyUser = await context.User
@@ -189,12 +189,16 @@ namespace Infrastructure.Services
                         .FirstOrDefaultAsync(x => x.Name == item);
                     if (itemMyUser == null)
                     {
+                        string phtoFilename = $"emoji{photoIndex}.png";
+                        photoIndex++;
+                        if (photoIndex > 10) photoIndex = 2;
                         itemMyUser = new User()
                         {
                             Account = $"{item}",
                             Name = $"使用者 {item}",
                             Status = true,
                             Salt = Guid.NewGuid().ToString(),
+                            CreateAt= DateTime.Now,
                         };
                         var userRawPassword = "123";
                         itemMyUser.Password =

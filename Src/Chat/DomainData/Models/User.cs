@@ -41,4 +41,7 @@ public class User
     public string Name { get; set; } = String.Empty;
     public string? Salt { get; set; }
     public bool Status { get; set; }
+    public string PhotoFileName { get; set; } = "emoji1.png";
+    public DateTime? CreateAt { get; set; }
+    public DateTime? UpdateAt { get; set; }
 }

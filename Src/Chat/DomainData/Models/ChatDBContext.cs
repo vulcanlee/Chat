@@ -20,6 +20,9 @@ public partial class ChatDBContext : DbContext
 
     public virtual DbSet<User> User { get; set; }
     public virtual DbSet<ExceptionRecord> ExceptionRecord { get; set; }
+    public virtual DbSet<ChatRoom> ChatRoom { get; set; }
+    public virtual DbSet<ChatRoomMember> ChatRoomMember { get; set; }
+    public virtual DbSet<ChatMessage> ChatMessage { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -4,8 +4,15 @@
 		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>0.3.5.0</Version>
+		<Version>0.3.6.2039</Version>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Helpers\**" />
+	  <Content Remove="Helpers\**" />
+	  <EmbeddedResource Remove="Helpers\**" />
+	  <None Remove="Helpers\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.3" />
@@ -20,10 +27,6 @@
 		<ProjectReference Include="..\..\Business\Business.csproj" />
 		<ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
 		<ProjectReference Include="..\Client\Chat.Client.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Helpers\" />
 	</ItemGroup>
 
 
