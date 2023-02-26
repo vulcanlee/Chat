@@ -73,7 +73,7 @@ public class OtpService : IOtpService
                 Salt = "",
                 Status = true,
                 PhotoFileName = "",
-                UserType = CommonDomain.Enums.UserTypeEnum.OTP,
+                UserType = CommonShareDomain.Enums.UserTypeEnum.OTP,
             };
             context.User.Add(user);
             await context.SaveChangesAsync();

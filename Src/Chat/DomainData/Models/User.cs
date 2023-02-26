@@ -1,4 +1,4 @@
-﻿using CommonDomain.Enums;
+﻿using CommonShareDomain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace DomainData.Models;

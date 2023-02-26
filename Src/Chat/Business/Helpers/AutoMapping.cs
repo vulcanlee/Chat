@@ -9,6 +9,9 @@ public class AutoMapping : Profile
     public AutoMapping()
     {
         #region DTO
+        CreateMap<ChatRoom, ChatRoomDto>();
+        CreateMap<ChatRoomDto, ChatRoom>();
+
         CreateMap<ExceptionRecord, ExceptionRecordDto>();
         CreateMap<ExceptionRecordDto, ExceptionRecord>();
 

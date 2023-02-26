@@ -176,7 +176,7 @@ public class ExceptionRecordService : IExceptionRecordService
                 .FirstOrDefaultAsync(x => x.Id == id);
             if (item == null)
             {
-                return VerifyRecordResultFactory.Build<ExceptionRecordDto>("無法刪除紀錄");
+                return VerifyRecordResultFactory.Build<ExceptionRecordDto>(MagicObject.CannotDeleteRecord);
             }
             else
             {

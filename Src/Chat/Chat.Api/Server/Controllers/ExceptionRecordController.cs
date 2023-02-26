@@ -2,6 +2,7 @@
 using Business.Factories;
 using CommonDomain.Models;
 using CommonDomainLayer.Enums;
+using CommonDomainLayer.Magics;
 using DataTransferObject.Dtos;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -226,7 +227,7 @@ public class ExceptionRecordController : ControllerBase
             else
             {
                 apiResult = APIResultFactory.Build<object>(false, StatusCodes.Status400BadRequest,
-                    "無法刪除紀錄", payload: null);
+                    MagicObject.CannotDeleteRecord, payload: null);
                 return BadRequest(apiResult);
             }
         }

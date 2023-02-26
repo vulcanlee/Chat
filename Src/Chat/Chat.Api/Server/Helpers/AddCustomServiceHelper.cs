@@ -16,6 +16,7 @@ namespace Chat.Api.Helpers
         {
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOtpService, OtpService>();
+            services.AddTransient<IChatRoomService, ChatRoomService>();
             services.AddTransient<IExceptionRecordService, ExceptionRecordService>();
             services.AddTransient<JwtGenerateHelper>();
             services.AddTransient<DatabaseInitService>();

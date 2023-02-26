@@ -32,5 +32,6 @@ namespace CommonDomainLayer.Magics
 
         public const string HasException = "發生例外異常";
         public const string CannotFindRecordForUpdate = "無法發現要修改的紀錄";
+        public const string CannotDeleteRecord = "無法刪除紀錄";
     }
 }
