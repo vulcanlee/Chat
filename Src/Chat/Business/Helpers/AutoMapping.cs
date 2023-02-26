@@ -12,8 +12,8 @@ public class AutoMapping : Profile
         CreateMap<ExceptionRecord, ExceptionRecordDto>();
         CreateMap<ExceptionRecordDto, ExceptionRecord>();
 
-        CreateMap<User, MyUserDto>();
-        CreateMap<MyUserDto, User>();
+        CreateMap<User, UserDto>();
+        CreateMap<UserDto, User>();
         #endregion
     }
 }

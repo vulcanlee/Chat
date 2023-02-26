@@ -1,5 +1,6 @@
 using Business.Helpers;
 using BusinessHelpers;
+using Chat.Api.Helpers;
 using Chat.Api.Hubs;
 using CommonDomain.Configurations;
 using CommonDomainLayer.Configurations;
@@ -44,10 +45,7 @@ try
     #endregion
 
     #region 註冊本專案會用到的客製服務
-    builder.Services.AddTransient<IUserService, UserService>();
-    builder.Services.AddTransient<IOtpService, OtpService>();
-    builder.Services.AddTransient<JwtGenerateHelper>();
-    builder.Services.AddTransient<DatabaseInitService>();
+    builder.Services.AddProjetService();
     #endregion
 
     #region 相關選項模式

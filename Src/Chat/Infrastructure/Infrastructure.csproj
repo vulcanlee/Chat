@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
     <ProjectReference Include="..\CommonDomain\CommonDomain.csproj" />
+    <ProjectReference Include="..\DataTransferObject\DataTransferObject.csproj" />
     <ProjectReference Include="..\DomainData\DomainData.csproj" />
   </ItemGroup>
 

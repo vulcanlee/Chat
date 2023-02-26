@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace DataTransferObject.Dtos
 {
-    public class MyUserDto : ICloneable, INotifyPropertyChanged
+    public class UserDto : ICloneable, INotifyPropertyChanged
     {
         public string Account { get; set; } = String.Empty;
         public string Password { get; set; } = String.Empty;
@@ -12,9 +12,9 @@ namespace DataTransferObject.Dtos
         #region 介面實作
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MyUserDto Clone()
+        public UserDto Clone()
         {
-            return ((ICloneable)this).Clone() as MyUserDto;
+            return ((ICloneable)this).Clone() as UserDto;
         }
         object ICloneable.Clone()
         {
