@@ -503,6 +503,165 @@
 			]
 		},
 		{
+			"name": "聊天室",
+			"item": [
+				{
+					"name": "Retrive 所有聊天室記錄",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoom",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive 特定聊天室記錄",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoom/21",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoom",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post 新增聊天室記錄",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"name\": \"私人2\",\r\n  \"roomType\": 0,\r\n  \"createAt\": \"0001-01-01T00:00:00\",\r\n  \"updateAt\": \"0001-01-01T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/ChatRoom",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put 修改聊天室記錄",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"name\": \"私人2\",\r\n  \"roomType\": 0,\r\n  \"createAt\": \"0001-01-01T00:00:00\",\r\n  \"updateAt\": \"0001-01-01T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/ChatRoom/1",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoom",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 刪除聊天室記錄",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoom/2",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoom",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "開發用 - 資料庫初始化",
 			"item": [
 				{

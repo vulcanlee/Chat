@@ -5,9 +5,9 @@ namespace DomainData.Models;
 /// <summary>
 /// 使用者
 /// </summary>
-public class ChatMessage
+public class ChatRoomMessage
 {
-    public ChatMessage()
+    public ChatRoomMessage()
     {
     }
 
