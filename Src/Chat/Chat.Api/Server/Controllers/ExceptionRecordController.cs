@@ -43,7 +43,7 @@ public class ExceptionRecordController : ControllerBase
 
 
         #region 新增記錄前的紀錄完整性檢查
-        VerifyRecordResult verify = await ExceptionRecordService.BeforeAddCheckAsync(data);
+        VerifyRecordResult<ExceptionRecordDto> verify = await ExceptionRecordService.BeforeAddCheckAsync(data);
         if (verify.Success == false)
         {
             apiResult = APIResultFactory.Build<ExceptionRecordDto>(false, StatusCodes.Status400BadRequest,
@@ -79,7 +79,7 @@ public class ExceptionRecordController : ControllerBase
         {
 
             #region 新增記錄前的紀錄完整性檢查
-            VerifyRecordResult verify = await ExceptionRecordService.BeforeAddCheckAsync(record);
+            VerifyRecordResult<ExceptionRecordDto> verify = await ExceptionRecordService.BeforeAddCheckAsync(record);
             #endregion
 
             var verifyRecordResult = await ExceptionRecordService.AddAsync(record);
@@ -165,7 +165,7 @@ public class ExceptionRecordController : ControllerBase
         if (record != null)
         {
             #region 修改記錄前的紀錄完整性檢查
-            VerifyRecordResult verify = await ExceptionRecordService.BeforeUpdateCheckAsync(record);
+            VerifyRecordResult<ExceptionRecordDto> verify = await ExceptionRecordService.BeforeUpdateCheckAsync(record);
             if (verify.Success == false)
             {
                 apiResult = APIResultFactory.Build<ExceptionRecordDto>(false, StatusCodes.Status400BadRequest,
@@ -174,7 +174,8 @@ public class ExceptionRecordController : ControllerBase
             }
             #endregion
 
-            var verifyRecordResult = await ExceptionRecordService.UpdateAsync(record);
+            data.Id= id;
+            var verifyRecordResult = await ExceptionRecordService.UpdateAsync(data);
             if (verifyRecordResult.Success)
             {
                 apiResult = APIResultFactory.Build<ExceptionRecordDto>(true, StatusCodes.Status202Accepted,
@@ -206,7 +207,7 @@ public class ExceptionRecordController : ControllerBase
         if (record != null)
         {
             #region 刪除記錄前的紀錄完整性檢查
-            VerifyRecordResult verify = await ExceptionRecordService.BeforeDeleteCheckAsync(record);
+            VerifyRecordResult<ExceptionRecordDto> verify = await ExceptionRecordService.BeforeDeleteCheckAsync(record);
             if (verify.Success == false)
             {
                 apiResult = APIResultFactory.Build<object>(false, StatusCodes.Status400BadRequest,

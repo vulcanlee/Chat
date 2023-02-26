@@ -30,5 +30,7 @@ namespace CommonDomainLayer.Magics
         "user16", "user16", "user17", "user18", "user19"};
         #endregion
 
+        public const string HasException = "發生例外異常";
+        public const string CannotFindRecordForUpdate = "無法發現要修改的紀錄";
     }
 }

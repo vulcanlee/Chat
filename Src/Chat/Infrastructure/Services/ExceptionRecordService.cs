@@ -2,6 +2,7 @@
 using Business.Factories;
 using CommonDomain.Models;
 using CommonDomainLayer.Enums;
+using CommonDomainLayer.Magics;
 using DataTransferObject.Dtos;
 using DataTransferObject.Enums;
 using DomainData.Models;
@@ -110,7 +111,7 @@ public class ExceptionRecordService : IExceptionRecordService
         return result;
     }
 
-    public async Task<VerifyRecordResult> AddAsync(ExceptionRecordDto paraObject)
+    public async Task<VerifyRecordResult<ExceptionRecordDto>> AddAsync(ExceptionRecordDto paraObject)
     {
         ExceptionRecord itemParameter = Mapper.Map<ExceptionRecord>(paraObject);
         CleanTrackingHelper.Clean<ExceptionRecord>(context);
@@ -119,70 +120,99 @@ public class ExceptionRecordService : IExceptionRecordService
             await context.ExceptionRecord
                 .AddAsync(itemParameter);
             await context.SaveChangesAsync();
+            paraObject = Mapper.Map<ExceptionRecordDto>(itemParameter);
+            return VerifyRecordResultFactory.Build<ExceptionRecordDto>(paraObject);
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            return VerifyRecordResultFactory.Build<ExceptionRecordDto>(MagicObject.HasException, ex);
         }
-        CleanTrackingHelper.Clean<ExceptionRecord>(context);
-        return VerifyRecordResultFactory.Build(true);
-    }
-
-    public async Task<VerifyRecordResult> UpdateAsync(ExceptionRecordDto paraObject)
-    {
-        ExceptionRecord itemData = Mapper.Map<ExceptionRecord>(paraObject);
-        CleanTrackingHelper.Clean<ExceptionRecord>(context);
-        ExceptionRecord item = await context.ExceptionRecord
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == paraObject.Id);
-        if (item == null)
-        {
-            return VerifyRecordResultFactory.Build(false, "無法修改紀錄");
-        }
-        else
+        finally
         {
             CleanTrackingHelper.Clean<ExceptionRecord>(context);
-            context.Entry(itemData).State = EntityState.Modified;
-            await context.SaveChangesAsync();
-            CleanTrackingHelper.Clean<ExceptionRecord>(context);
-            return VerifyRecordResultFactory.Build(true);
         }
     }
 
-    public async Task<VerifyRecordResult> DeleteAsync(int id)
+    public async Task<VerifyRecordResult<ExceptionRecordDto>> UpdateAsync(ExceptionRecordDto paraObject)
     {
-        CleanTrackingHelper.Clean<ExceptionRecord>(context);
-        ExceptionRecord item = await context.ExceptionRecord
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id);
-        if (item == null)
+        try
         {
-            return VerifyRecordResultFactory.Build(false, "無法刪除紀錄");
+            ExceptionRecord itemData = Mapper.Map<ExceptionRecord>(paraObject);
+            CleanTrackingHelper.Clean<ExceptionRecord>(context);
+            ExceptionRecord item = await context.ExceptionRecord
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == paraObject.Id);
+            if (item == null)
+            {
+                return VerifyRecordResultFactory.Build<ExceptionRecordDto>(MagicObject.CannotFindRecordForUpdate, null);
+            }
+            else
+            {
+                CleanTrackingHelper.Clean<ExceptionRecord>(context);
+                context.Entry(itemData).State = EntityState.Modified;
+                await context.SaveChangesAsync();
+                paraObject = Mapper.Map<ExceptionRecordDto>(itemData);
+                return VerifyRecordResultFactory.Build<ExceptionRecordDto>(paraObject);
+            }
         }
-        else
+        catch (Exception ex)
+        {
+            return VerifyRecordResultFactory.Build<ExceptionRecordDto>(MagicObject.HasException, ex);
+        }
+        finally
         {
             CleanTrackingHelper.Clean<ExceptionRecord>(context);
-            context.Entry(item).State = EntityState.Deleted;
-            await context.SaveChangesAsync();
-            CleanTrackingHelper.Clean<ExceptionRecord>(context);
-            return VerifyRecordResultFactory.Build(true);
         }
-    }
-    public async Task<VerifyRecordResult> BeforeAddCheckAsync(ExceptionRecordDto paraObject)
-    {
-        await Task.Yield();
-        return VerifyRecordResultFactory.Build(true);
     }
 
-    public async Task<VerifyRecordResult> BeforeUpdateCheckAsync(ExceptionRecordDto paraObject)
+    public async Task<VerifyRecordResult<ExceptionRecordDto>> DeleteAsync(int id)
     {
-        await Task.Yield();
-        return VerifyRecordResultFactory.Build(true);
+        try
+        {
+
+            CleanTrackingHelper.Clean<ExceptionRecord>(context);
+            ExceptionRecord item = await context.ExceptionRecord
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (item == null)
+            {
+                return VerifyRecordResultFactory.Build<ExceptionRecordDto>("無法刪除紀錄");
+            }
+            else
+            {
+                CleanTrackingHelper.Clean<ExceptionRecord>(context);
+                context.Entry(item).State = EntityState.Deleted;
+                await context.SaveChangesAsync();
+                CleanTrackingHelper.Clean<ExceptionRecord>(context);
+                var deleteObject = Mapper.Map<ExceptionRecordDto>(item);
+                return VerifyRecordResultFactory.Build<ExceptionRecordDto>(deleteObject);
+            }
+        }
+        catch (Exception ex)
+        {
+            return VerifyRecordResultFactory.Build<ExceptionRecordDto>(MagicObject.HasException, ex);
+        }
+        finally
+        {
+            CleanTrackingHelper.Clean<ExceptionRecord>(context);
+        }
     }
-    public async Task<VerifyRecordResult> BeforeDeleteCheckAsync(ExceptionRecordDto paraObject)
+    public async Task<VerifyRecordResult<ExceptionRecordDto>> BeforeAddCheckAsync(ExceptionRecordDto paraObject)
     {
         await Task.Yield();
-        return VerifyRecordResultFactory.Build(true);
+        return VerifyRecordResultFactory.Build<ExceptionRecordDto>(paraObject);
+    }
+
+    public async Task<VerifyRecordResult<ExceptionRecordDto>> BeforeUpdateCheckAsync(ExceptionRecordDto paraObject)
+    {
+        await Task.Yield();
+        return VerifyRecordResultFactory.Build<ExceptionRecordDto>(paraObject);
+    }
+
+    public async Task<VerifyRecordResult<ExceptionRecordDto>> BeforeDeleteCheckAsync(ExceptionRecordDto paraObject)
+    {
+        await Task.Yield();
+        return VerifyRecordResultFactory.Build<ExceptionRecordDto>(paraObject);
     }
     async Task OhterDependencyData(ExceptionRecordDto data)
     {

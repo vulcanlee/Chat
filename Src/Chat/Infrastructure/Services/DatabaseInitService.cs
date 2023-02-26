@@ -139,7 +139,7 @@ namespace Infrastructure.Services
             CleanTrackingHelper.Clean<User>(context);
 
             #region 建立 開發者
-            var myUser = new User()
+            var user = new User()
             {
                 Account = MagicObject.開發者帳號,
                 Name = $"開發者",
@@ -148,12 +148,12 @@ namespace Infrastructure.Services
                 CreateAt= DateTime.Now,
             };
 
-            myUser.Salt = Guid.NewGuid().ToString();
-            myUser.Password =
+            user.Salt = Guid.NewGuid().ToString();
+            user.Password =
              PasswordHelper
-             .GetPasswordSHA(myUser.Salt + "SomethingAnyWord", "123");
+             .GetPasswordSHA(user.Salt + "SomethingAnyWord", "123");
 
-            context.Add(myUser);
+            context.Add(user);
             await context.SaveChangesAsync();
 
             CleanTrackingHelper.Clean<User>(context);

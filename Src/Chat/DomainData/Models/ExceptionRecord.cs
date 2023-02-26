@@ -9,7 +9,7 @@ namespace DomainData.Models;
 public class ExceptionRecord
 {
     public int Id { get; set; }
-    public int? MyUserId { get; set; }
+    public int? UserId { get; set; }
 
     public string? DeviceName { get; set; }
     public string? DeviceModel { get; set; }
