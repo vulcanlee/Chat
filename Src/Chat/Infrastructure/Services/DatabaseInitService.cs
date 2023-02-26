@@ -151,7 +151,7 @@ namespace Infrastructure.Services
             user.Salt = Guid.NewGuid().ToString();
             user.Password =
              PasswordHelper
-             .GetPasswordSHA(user.Salt + "SomethingAnyWord", "123");
+             .GetPasswordSHA(user.Salt + MagicObject.PasswordSaltPostfix, "123");
 
             context.Add(user);
             await context.SaveChangesAsync();

@@ -20,6 +20,7 @@ namespace CommonDomainLayer.Magics
         public const string RoleAdmin = "Admin";
         public const string DefaultConnectionString = "Admin";
         public const string DefaultSQLiteConnectionString = "Admin";
+        public const string PasswordSaltPostfix = "SomethingAnyWord";
 
         #region 帳號相關
         public const string 開發者帳號 = "god";

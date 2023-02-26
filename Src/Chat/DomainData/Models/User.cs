@@ -8,27 +8,6 @@ namespace DomainData.Models;
 /// </summary>
 public class User
 {
-    public static List<User> GetMyUsers()
-    {
-        List<User> Users = new List<User>()
-        {
-            new User()
-            {
-                Id = 1,
-                Account = "Tom",
-                Password = "123",
-                Name= "Tom"
-            },
-            new User()
-            {
-                Id = 2,
-                Account = "Emily",
-                Password = "123",
-                Name= "Emily"
-            }
-        };
-        return Users;
-    }
     public User()
     {
     }

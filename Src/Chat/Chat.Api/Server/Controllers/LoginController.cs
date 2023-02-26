@@ -1,4 +1,5 @@
-﻿using Business.Factories;
+﻿using AutoMapper;
+using Business.Factories;
 using Business.Helpers;
 using CommonDomainLayer.Configurations;
 using CommonDomainLayer.Magics;
@@ -19,13 +20,15 @@ namespace Chat.Api.Controllers
     public class LoginController : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly IMapper mapper;
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
-        public LoginController(IUserService userService,
+        public LoginController(IUserService userService, IMapper mapper,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
         {
             this.userService = userService;
+            this.mapper = mapper;
             this.jwtGenerateHelper = jwtGenerateHelper;
             this.jwtConfiguration = jwtConfiguration.Value;
         }
@@ -115,7 +118,14 @@ namespace Chat.Api.Controllers
                 Account = User.FindFirst(ClaimTypes.Sid)?.Value,
             };
 
-            User user = await userService.GetAsync(Convert.ToInt32(loginRequestDTO.Account));
+            UserDto userDto = await userService.GetAsync(Convert.ToInt32(loginRequestDTO.Account));
+            if (userDto == null)
+            {
+                apiResult = APIResultFactory.Build<LoginResponseDto>(false, StatusCodes.Status401Unauthorized,
+                "沒有發現指定的該使用者資料");
+                return BadRequest(apiResult);
+            }
+            User user = mapper.Map<User>(userDto);
             if (user.Id == 0)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false, StatusCodes.Status401Unauthorized,
