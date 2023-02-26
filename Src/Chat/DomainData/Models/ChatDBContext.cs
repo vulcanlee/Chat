@@ -22,7 +22,7 @@ public partial class ChatDBContext : DbContext
     public virtual DbSet<ExceptionRecord> ExceptionRecord { get; set; }
     public virtual DbSet<ChatRoom> ChatRoom { get; set; }
     public virtual DbSet<ChatRoomMember> ChatRoomMember { get; set; }
-    public virtual DbSet<ChatRoomMessage> ChatMessage { get; set; }
+    public virtual DbSet<ChatRoomMessage> ChatRoomMessage { get; set; }
     public virtual DbSet<OtpVerifyHistory> OtpVerifyHistory { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

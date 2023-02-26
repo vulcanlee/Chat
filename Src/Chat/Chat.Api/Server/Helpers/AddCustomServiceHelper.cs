@@ -1,4 +1,5 @@
 ﻿using Business.Helpers;
+using DomainData.Models;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace Chat.Api.Helpers
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IOtpService, OtpService>();
             services.AddTransient<IChatRoomService, ChatRoomService>();
+            services.AddTransient<IChatRoomMemberService, ChatRoomMemberService>();
+            services.AddTransient<IChatRoomMessageService, ChatRoomMessageService>();
             services.AddTransient<IExceptionRecordService, ExceptionRecordService>();
             services.AddTransient<JwtGenerateHelper>();
             services.AddTransient<DatabaseInitService>();

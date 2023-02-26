@@ -572,7 +572,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id\": 0,\r\n  \"name\": \"私人2\",\r\n  \"roomType\": 0,\r\n  \"createAt\": \"0001-01-01T00:00:00\",\r\n  \"updateAt\": \"0001-01-01T00:00:00\"\r\n}",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"name\": \"私人1\",\r\n  \"roomType\": 0,\r\n  \"createAt\": \"0001-01-01T00:00:00\",\r\n  \"updateAt\": \"0001-01-01T00:00:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -662,24 +662,316 @@
 			]
 		},
 		{
-			"name": "開發用 - 資料庫初始化",
+			"name": "聊天室成員",
 			"item": [
 				{
-					"name": "資料庫建立、初始化",
+					"name": "Retrive 所有聊天室成員",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{Host}}/api/DBInit",
+							"raw": "{{Host}}/api/ChatRoomMember",
 							"host": [
 								"{{Host}}"
 							],
 							"path": [
 								"api",
-								"DBInit"
+								"ChatRoomMember"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive 特定聊天室成員",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMember/2",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMember",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post 新增聊天室成員",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"ChatRoomId\": 1,\r\n  \"UserId\": 2,\r\n  \"createAt\": \"0001-01-01T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMember",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMember"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put 修改聊天室成員",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"ChatRoomId\": 1,\r\n  \"UserId\": 4,\r\n  \"createAt\": \"0001-01-01T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMember/1",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMember",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 刪除聊天室成員",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMember/2",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMember",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "聊天室訊息",
+			"item": [
+				{
+					"name": "Retrive 所有聊天室訊息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMessage",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive 特定聊天室訊息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMessage/2",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMessage",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post 新增聊天室訊息",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"ChatRoomId\": 1,\r\n  \"UserId\": 2,\r\n  \"Content\": \"Content4 Content4\",\r\n  \"createAt\": \"0001-01-01T00:00:00\",\r\n  \"UpdateAt\": \"0001-01-01T00:00:00\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMessage",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put 修改聊天室訊息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"ChatRoomId\": 1,\r\n  \"UserId\": 2,\r\n  \"Content\": \"Content5 Content5\",\r\n  \"createAt\": \"0001-01-01T00:00:00\",\r\n  \"UpdateAt\": \"0001-01-01T00:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMessage/4",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMessage",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete 刪除聊天室訊息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/ChatRoomMessage/4",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"ChatRoomMessage",
+								"4"
 							]
 						}
 					},
@@ -725,6 +1017,32 @@
 								"Login",
 								"0987654321",
 								"7134"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "開發用 - 資料庫初始化",
+			"item": [
+				{
+					"name": "資料庫建立、初始化",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Host}}/api/DBInit",
+							"host": [
+								"{{Host}}"
+							],
+							"path": [
+								"api",
+								"DBInit"
 							]
 						}
 					},
