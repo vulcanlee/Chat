@@ -7,6 +7,7 @@ namespace DomainData.Models;
 /// 使用者
 /// </summary>
 [Index(nameof(PhoneNumber))]
+[Index(nameof(CreateAt))]
 public class OtpVerifyHistory
 {
     public OtpVerifyHistory()
