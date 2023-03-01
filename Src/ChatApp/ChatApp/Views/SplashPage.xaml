@@ -4,9 +4,14 @@
              Title="Page Title"
              x:Class="ChatApp.Views.SplashPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
-             x:DataType="viewModel:SplashPageViewModel">
+             x:DataType="viewModel:SplashPageViewModel"
+             BackgroundColor="LightYellow">
 
-  <Grid>
-  </Grid>
+    <Grid>
+        <Label Text="{Binding Message}"
+               HorizontalOptions="Center" VerticalOptions="Center"
+               FontSize="16"
+               TextColor="#333"/>
+    </Grid>
 
 </ContentPage>

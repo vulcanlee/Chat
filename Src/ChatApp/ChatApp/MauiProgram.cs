@@ -20,6 +20,16 @@ public static class MauiProgram
                           container.RegisterForNavigation<MainPage, MainPageViewModel>();
                           container.RegisterForNavigation<NaviPage, NaviPageViewModel>();
                           container.RegisterForNavigation<FOPage, FOPageViewModel>();
+                          container.RegisterForNavigation<SplashPage, SplashPageViewModel>();
+                          container.RegisterForNavigation<HomePage, HomePageViewModel>();
+                          container.RegisterForNavigation<HomePage, HomePageViewModel>();
+                          container.RegisterForNavigation<OtpLoginPage, OtpLoginPageViewModel>();
+                          container.RegisterForNavigation<OtpCodePage, OtpCodePageViewModel>();
+                          container.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+                          container.RegisterForNavigation<UserLoginPage, UserLoginPageViewModel>();
+                          container.RegisterForNavigation<ChatRoomPage, ChatRoomPageViewModel>();
+                          container.RegisterForNavigation<AboutPage, AboutPageViewModel>();
+                          container.RegisterForNavigation<AllUserPage, AllUserPageViewModel>();
                       })
                      .OnInitialized(() =>
                       {
@@ -29,7 +39,8 @@ public static class MauiProgram
                      {
                          // Navigate to First page of this App
                          var result = await navigationService
-                         .NavigateAsync("/FOPage/NaviPage/MainPage");
+                         .NavigateAsync("/SplashPage");
+                         //.NavigateAsync("/FOPage/NaviPage/MainPage");
                          if (!result.Success)
                          {
                              System.Diagnostics.Debugger.Break();

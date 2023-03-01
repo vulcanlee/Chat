@@ -4,9 +4,16 @@
              Title="Page Title"
              x:Class="ChatApp.Views.LoginPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
-             x:DataType="viewModel:LoginPageViewModel">
+             x:DataType="viewModel:LoginPageViewModel"
+             BackgroundColor="HotPink">
 
-  <Grid>
-  </Grid>
+    <Grid>
+        <HorizontalStackLayout
+            VerticalOptions="Center" HorizontalOptions="Center">
+            <Button Text="使用 OTP 方式登入"/>
+            <Button Text="使用 帳號與密碼 方式登入"
+                    Margin="30,0,0,0"/>
+        </HorizontalStackLayout>
+    </Grid>
 
 </ContentPage>
