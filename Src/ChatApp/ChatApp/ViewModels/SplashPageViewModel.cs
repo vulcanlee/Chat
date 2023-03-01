@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommonLibrary.Helpers.Magics;
+using CommonLibrary.Helpers.Utilities;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace ChatApp.ViewModels;
@@ -11,7 +13,9 @@ public partial class SplashPageViewModel : ObservableObject, INavigatedAware
 
     #region Property Member
     [ObservableProperty]
-    string message=string.Empty;
+    string message = string.Empty;
+    [ObservableProperty]
+    bool retryNetwork = false;
     #endregion
 
     #region Constructor
@@ -23,6 +27,13 @@ public partial class SplashPageViewModel : ObservableObject, INavigatedAware
 
     #region Method Member
     #region Command Method
+    [RelayCommand]
+    async Task CheckNetwork()
+    {
+        RetryNetwork = false;
+
+        await LaunchPrepare();
+    }
     #endregion
 
     #region Navigation Event
@@ -32,14 +43,27 @@ public partial class SplashPageViewModel : ObservableObject, INavigatedAware
 
     public async void OnNavigatedTo(INavigationParameters parameters)
     {
-        Message = $"請稍後，系統啟動中";
-        await Task.Delay(3000);
-
-        navigationService.NavigateAsync("/LoginPage");
+        await LaunchPrepare();
     }
     #endregion
 
     #region Other Method
+    async Task LaunchPrepare()
+    {
+        Message = $"請稍後，系統啟動中";
+        await Task.Delay(3000);
+
+        var isConnectNetwork = NetworkHelper.IsConnected();
+
+        if (!isConnectNetwork)
+        {
+            RetryNetwork = true;
+            return;
+        }
+
+        navigationService.NavigateAsync("/LoginPage");
+
+    }
     #endregion
     #endregion
 }

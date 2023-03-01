@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CommonLibrary.Helpers.Magics
 {
-    public class MagicStringHelper
+    public class MagicObject
     {
         public static readonly string CurrentSelectdItemParameterName = "Current Item";
         public static readonly string CrudActionName = "CRUDAction";

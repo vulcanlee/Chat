@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp", "ChatApp\ChatApp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransferObject", "..\Chat\DataTransferObject\DataTransferObject.csproj", "{944B5EBD-32D9-48B5-AD9A-B0DB9C42A155}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{FECEE860-E77B-497B-86C7-5426C708AED0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{E0A4A231-FEEC-4FBC-8918-25B71ECFE4C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{944B5EBD-32D9-48B5-AD9A-B0DB9C42A155}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{944B5EBD-32D9-48B5-AD9A-B0DB9C42A155}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{944B5EBD-32D9-48B5-AD9A-B0DB9C42A155}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECEE860-E77B-497B-86C7-5426C708AED0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECEE860-E77B-497B-86C7-5426C708AED0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECEE860-E77B-497B-86C7-5426C708AED0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECEE860-E77B-497B-86C7-5426C708AED0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0A4A231-FEEC-4FBC-8918-25B71ECFE4C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A4A231-FEEC-4FBC-8918-25B71ECFE4C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A4A231-FEEC-4FBC-8918-25B71ECFE4C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A4A231-FEEC-4FBC-8918-25B71ECFE4C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

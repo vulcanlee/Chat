@@ -9,9 +9,28 @@
 
     <Grid>
         <Label Text="{Binding Message}"
+               Margin="30,0"
                HorizontalOptions="Center" VerticalOptions="Center"
                FontSize="16"
                TextColor="#333"/>
+
+        <Grid
+            Margin="20,50"
+            IsVisible="{Binding RetryNetwork}"
+            >
+            <Border BackgroundColor="#b5b3b3"/>
+            <VerticalStackLayout
+                VerticalOptions="Center" HorizontalOptions="Center"
+                >
+                <Label Text="此裝置現在無法連上網路，請檢查並確認已經成功連接到網路上。修正完成後，請點選下方重新嘗試按鈕"
+                       Margin="15,0"
+                       FontSize="22"/>
+                <Button Text="重新嘗試"
+                        Command="{Binding CheckNetworkCommand}"
+                        Margin="0,40,0,0"
+                        />
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
 
 </ContentPage>
