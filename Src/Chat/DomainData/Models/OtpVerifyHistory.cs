@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace DomainData.Models;
 
 /// <summary>
 /// 使用者
 /// </summary>
+[Index(nameof(PhoneNumber))]
 public class OtpVerifyHistory
 {
     public OtpVerifyHistory()

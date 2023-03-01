@@ -1,4 +1,5 @@
 ﻿using CommonShareDomain.Enums;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace DomainData.Models;
@@ -6,6 +7,8 @@ namespace DomainData.Models;
 /// <summary>
 /// 使用者
 /// </summary>
+[Index(nameof(Account))]
+[Index(nameof(PhoneNumber))]
 public class User
 {
     public User()
@@ -26,4 +29,6 @@ public class User
     public UserTypeEnum UserType { get; set; } = UserTypeEnum.LOCAL;
     public DateTime? CreateAt { get; set; }
     public DateTime? UpdateAt { get; set; }
+
+    public ICollection<ChatRoomMember> ChatRoomMember { get; set; }=new HashSet<ChatRoomMember>();
 }
