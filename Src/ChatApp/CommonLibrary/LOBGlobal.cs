@@ -8,9 +8,9 @@ namespace CommonLibrary.Helpers
     {
         #region 本機測試用 Web API
         //// https://localhost:5001/
-        public const string APIscheme = "https";
+        public const string APIscheme = "http";
         public const string APIHost = "192.168.82.142";
-        public const int APIPort = 7038;
+        public const int APIPort = 5224;
         #endregion
 
         #region Azure 雲端主機 Web API

@@ -2,6 +2,8 @@
 using ChatApp.Helpers;
 using ChatApp.ViewModels;
 using ChatApp.Views;
+using Business.Services;
+using Business.DataModel;
 
 namespace ChatApp;
 
@@ -17,6 +19,7 @@ public static class MauiProgram
 
                 prism.RegisterTypes(container =>
                       {
+                          #region View & ViewModel 對應註冊
                           container.RegisterForNavigation<MainPage, MainPageViewModel>();
                           container.RegisterForNavigation<NaviPage, NaviPageViewModel>();
                           container.RegisterForNavigation<FOPage, FOPageViewModel>();
@@ -30,6 +33,13 @@ public static class MauiProgram
                           container.RegisterForNavigation<ChatRoomPage, ChatRoomPageViewModel>();
                           container.RegisterForNavigation<AboutPage, AboutPageViewModel>();
                           container.RegisterForNavigation<AllUserPage, AllUserPageViewModel>();
+                          #endregion
+
+                          #region 客製服務註冊
+                          container.RegisterSingleton<AppStatus>();
+                          container.Register<OtpLoginService>();
+                          container.Register<OtpVerifyCodeService>();
+                          #endregion
                       })
                      .OnInitialized(() =>
                       {

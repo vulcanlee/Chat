@@ -1,4 +1,5 @@
-﻿using CommonLibrary.Helpers.Magics;
+﻿using Business.DataModel;
+using CommonLibrary.Helpers.Magics;
 using CommonLibrary.Helpers.Utilities;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,6 +10,7 @@ public partial class SplashPageViewModel : ObservableObject, INavigatedAware
 {
     #region Field Member
     private readonly INavigationService navigationService;
+    private readonly AppStatus appStatus;
     #endregion
 
     #region Property Member
@@ -19,9 +21,11 @@ public partial class SplashPageViewModel : ObservableObject, INavigatedAware
     #endregion
 
     #region Constructor
-    public SplashPageViewModel(INavigationService navigationService)
+    public SplashPageViewModel(INavigationService navigationService,
+        AppStatus appStatus)
     {
         this.navigationService = navigationService;
+        this.appStatus = appStatus;
     }
     #endregion
 
@@ -61,8 +65,18 @@ public partial class SplashPageViewModel : ObservableObject, INavigatedAware
             return;
         }
 
-        navigationService.NavigateAsync("/LoginPage");
+        await appStatus.ReadAsync();
 
+        var foo = appStatus.SystemStatus;
+        if (appStatus.SystemStatus.IsLogin == true &&
+            appStatus.SystemStatus.TokenExpireDatetime > DateTime.Now)
+        {
+            await navigationService.NavigateAsync("/FOPage/NaviPage/HomePage");
+        }
+        else
+        {
+            await navigationService.NavigateAsync("/NaviPage/LoginPage");
+        }
     }
     #endregion
     #endregion

@@ -60,6 +60,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Chat\DataTransferObject\DataTransferObject.csproj" />
+		<ProjectReference Include="..\Business\Business.csproj" />
 		<ProjectReference Include="..\CommonLibrary\CommonLibrary.csproj" />
 	</ItemGroup>
 

@@ -153,9 +153,13 @@ namespace CommonLibrary.Helpers.WebAPIs
                 dic.Remove(LOBGlobal.JSONDataKeyName);
             }
 
-            HttpClientHandler handler = new HttpClientHandler();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                //ServerCertificateCustomValidationCallback =
+                //HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
 
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient(handler))
             {
                 try
                 {
@@ -232,7 +236,7 @@ namespace CommonLibrary.Helpers.WebAPIs
                                 var fooDataString = apiResult.Payload==null?"": apiResult.Payload.ToString();
                                 if (ApiResultIsCollection == false)
                                 {
-                                    SingleItem = JsonConvert.DeserializeObject<T>(fooDataString, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                                    SingleItem = apiResult.Payload;
                                     if (ApiResultIsCollection == false && PersistentStorage == PersistentStorage.Single)
                                     {
                                         if (SingleItem == null)

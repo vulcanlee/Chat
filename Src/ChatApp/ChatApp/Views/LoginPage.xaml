@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Page Title"
+             Title="選擇使用者登入方式"
              x:Class="ChatApp.Views.LoginPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
              x:DataType="viewModel:LoginPageViewModel"
@@ -10,8 +10,10 @@
     <Grid>
         <HorizontalStackLayout
             VerticalOptions="Center" HorizontalOptions="Center">
-            <Button Text="使用 OTP 方式登入"/>
+            <Button Text="使用 OTP 方式登入"
+                    Command="{Binding SwitchToOtpCodePageCommand}"/>
             <Button Text="使用 帳號與密碼 方式登入"
+                    Command="{Binding SwitchToUserLoginPageCommand}"
                     Margin="30,0,0,0"/>
         </HorizontalStackLayout>
     </Grid>

@@ -21,6 +21,17 @@ public partial class LoginPageViewModel : ObservableObject, INavigatedAware
 
     #region Method Member
     #region Command Method
+    [RelayCommand]
+    async Task SwitchToUserLoginPage()
+    {
+        await navigationService.NavigateAsync("UserLoginPage");
+    }
+
+    [RelayCommand]
+    async Task SwitchToOtpCodePage()
+    {
+        await navigationService.NavigateAsync("OtpCodePage");
+    }
     #endregion
 
     #region Navigation Event
