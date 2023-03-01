@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Page Title"
+             x:Class="ChatApp.Views.FOPage"
+             xmlns:model="clr-namespace:ChatApp.Models"
+             xmlns:helpers="clr-namespace:ChatApp.Helpers"
+             xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
+             x:DataType="viewModel:FOPageViewModel">
+
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu" BackgroundColor="DarkBlue">
+            <Grid
+                RowDefinitions="150,*"
+                >
+                <Grid Grid.Row="0"
+                      >
+                    <Border BackgroundColor="DarkBlue"
+                            StrokeThickness="0"/>
+                    <Label Text="Logo" FontSize="32" TextColor="White"
+                           HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+                <Grid Grid.Row="1"
+                      BackgroundColor="White"
+                    >
+                    <CollectionView SelectionMode="None"
+                                    Margin="20"
+                                    ItemsSource="{Binding MenuDatas}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:MenuData">
+                                <Grid Padding="5,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Icon}"
+                                           FontSize="30" FontAttributes="Bold"
+                                           FontFamily="{Binding Source={Static helpers:MagicValue.FontName}}"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Margin="20,0" Text="{Binding Title}"
+                                           FontSize="20" FontAttributes="Bold"
+                                           VerticalOptions="Center" />
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource 
+                                            AncestorType={x:Type viewModel:FOPageViewModel}},Path=MenuTapCommand}"
+                                            CommandParameter="{Binding Source={Static helpers:MagicValue.MenuHomeName}}"/>
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Grid>
+        </ContentPage>
+    </FlyoutPage.Flyout>
+
+</FlyoutPage>
