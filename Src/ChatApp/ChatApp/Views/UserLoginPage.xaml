@@ -6,7 +6,33 @@
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
              x:DataType="viewModel:UserLoginPageViewModel">
 
-  <Grid>
-  </Grid>
+    <Grid>
+        <VerticalStackLayout
+             HorizontalOptions="Center" VerticalOptions="Center"
+            Margin="30">
+            <VerticalStackLayout 
+                >
+                <Label Text="帳號"
+                       HorizontalOptions="Fill"
+                       FontSize="12"
+                       TextColor="DarkGray"/>
+                <Entry Text="{Binding Account}"
+                       HorizontalOptions="Fill"
+                       BackgroundColor="LightGray"/>
+                <Label Text="密碼"
+                       HorizontalOptions="Fill"
+                       Margin="0,30,0,0"
+                       FontSize="12"
+                       TextColor="DarkGray"/>
+                <Entry Text="{Binding Account}"
+                       HorizontalOptions="Fill"
+                       IsPassword="True"
+                       BackgroundColor="LightGray"/>
+                <Button Text="登入"
+                        Command="{Binding LoginCommand}"
+                        Margin="20,40,20,0"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
 
 </ContentPage>

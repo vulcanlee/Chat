@@ -40,6 +40,7 @@ public static class MauiProgram
                           container.RegisterSingleton<AppStatus>();
                           container.Register<OtpLoginService>();
                           container.Register<OtpVerifyCodeService>();
+                          container.Register<UserLoginService>();
                           #endregion
                       })
                      .OnInitialized(() =>
