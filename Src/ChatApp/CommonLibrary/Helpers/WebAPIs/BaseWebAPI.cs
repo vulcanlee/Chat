@@ -131,11 +131,11 @@ namespace CommonLibrary.Helpers.WebAPIs
         /// <param name="dic">所要傳遞的參數 Dictionary </param>
         /// <param name="httpMethod">Get Or Post</param>
         /// <returns></returns>
-        protected virtual async Task<APIResult<T>> SendAsync(Dictionary<string, string> dic, HttpMethod httpMethod,
+        protected virtual async Task<APIResult<object>> SendAsync(Dictionary<string, string> dic, HttpMethod httpMethod,
             CancellationToken cancellationTokentoken = default(CancellationToken))
         {
             this.ServiceResult = new APIResult<T>();
-            APIResult<T> apiResult = this.ServiceResult;
+            APIResult<object> apiResult = new APIResult<object>();
             string jsonPayload = "";
 
             #region 確認網路已經連線
@@ -230,13 +230,19 @@ namespace CommonLibrary.Helpers.WebAPIs
                         if (response.IsSuccessStatusCode == true)
                         {
                             #region 回傳成功狀態碼
-                            apiResult = JsonConvert.DeserializeObject<APIResult<T>>(strResult, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                            apiResult = JsonConvert
+                                .DeserializeObject<APIResult<object>>(strResult,
+                                new JsonSerializerSettings
+                                { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
                             if (apiResult.Status == true)
                             {
-                                var fooDataString = apiResult.Payload==null?"": apiResult.Payload.ToString();
+                                var payloadJsonContext = apiResult.Payload==null?"": apiResult.Payload.ToString();
                                 if (ApiResultIsCollection == false)
                                 {
-                                    SingleItem = apiResult.Payload;
+                                    SingleItem = JsonConvert
+                                        .DeserializeObject<T>(payloadJsonContext,
+                                        new JsonSerializerSettings 
+                                        { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
                                     if (ApiResultIsCollection == false && PersistentStorage == PersistentStorage.Single)
                                     {
                                         if (SingleItem == null)
@@ -248,7 +254,10 @@ namespace CommonLibrary.Helpers.WebAPIs
                                 }
                                 else
                                 {
-                                    Items = JsonConvert.DeserializeObject<List<T>>(fooDataString, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                                    Items = JsonConvert
+                                        .DeserializeObject<List<T>>(payloadJsonContext,
+                                        new JsonSerializerSettings
+                                        { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
                                     if (ApiResultIsCollection == true && PersistentStorage == PersistentStorage.Collection)
                                     {
                                         if (Items == null)
@@ -269,7 +278,10 @@ namespace CommonLibrary.Helpers.WebAPIs
                         }
                         else
                         {
-                            APIResult<T> fooAPIResult = JsonConvert.DeserializeObject<APIResult<T>>(strResult, new JsonSerializerSettings { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
+                            APIResult<object> fooAPIResult = JsonConvert
+                                .DeserializeObject<APIResult<object>>(strResult,                                 
+                                new JsonSerializerSettings 
+                                { MetadataPropertyHandling = MetadataPropertyHandling.Ignore });
                             if (fooAPIResult != null)
                             {
                                 apiResult = fooAPIResult;

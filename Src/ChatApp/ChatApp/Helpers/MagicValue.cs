@@ -10,6 +10,7 @@ namespace ChatApp.Helpers
     {
         public const string FontName = "materialdesignicons";
         public const string MenuHomeName = "首頁";
-        public const string MenuHomeIcon = "Home";
+        public const string MenuAboutName = "關於";
+        public const string MenuLogoutName = "登出";
     }
 }

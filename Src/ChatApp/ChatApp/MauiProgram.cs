@@ -4,6 +4,7 @@ using ChatApp.ViewModels;
 using ChatApp.Views;
 using Business.Services;
 using Business.DataModel;
+using CommonLibrary.Helpers.Magics;
 
 namespace ChatApp;
 

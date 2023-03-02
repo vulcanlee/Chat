@@ -12,6 +12,13 @@ namespace Business.DataModel
         public SystemStatus SystemStatus { get; set; } = new SystemStatus();
         public string NotificationToken { get; set; } = "";
 
+        public async Task LogoutAsync()
+        {
+            SystemStatus = new();
+            NotificationToken = string.Empty;
+            await WriteAsync();
+        }
+
         public async Task FromLoginResponseDtoAsync(LoginResponseDto loginResponseDto)
         {
             SystemStatus.UserID = loginResponseDto.Id;

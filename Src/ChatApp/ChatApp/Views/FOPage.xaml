@@ -45,7 +45,7 @@
                                         <TapGestureRecognizer
                                             Command="{Binding Source={RelativeSource 
                                             AncestorType={x:Type viewModel:FOPageViewModel}},Path=MenuTapCommand}"
-                                            CommandParameter="{Binding Source={Static helpers:MagicValue.MenuHomeName}}"/>
+                                            CommandParameter="{Binding Title}"/>
                                     </Grid.GestureRecognizers>
                                 </Grid>
                             </DataTemplate>

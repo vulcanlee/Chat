@@ -53,7 +53,7 @@ public partial class OtpCodePageViewModel : ObservableObject, INavigatedAware
         var apiResult = await otpVerifyCodeService.GetAsync(PhoneNumber);
         if (apiResult.Status == true)
         {
-            NeedCode = apiResult.Payload.VerifyCode;
+            NeedCode = otpVerifyCodeService.SingleItem.VerifyCode;
             ShowStage1 = false;
             ShowStage2 = true;
         }
@@ -68,7 +68,7 @@ public partial class OtpCodePageViewModel : ObservableObject, INavigatedAware
         var apiResult = await otpLoginService.GetAsync(PhoneNumber,Code);
         if (apiResult.Status==true)
         {
-            await appStatus.FromLoginResponseDtoAsync(apiResult.Payload);
+            await appStatus.FromLoginResponseDtoAsync(otpLoginService.SingleItem);
 
             await navigationService.NavigateAsync("/FOPage/NaviPage/HomePage");
         }

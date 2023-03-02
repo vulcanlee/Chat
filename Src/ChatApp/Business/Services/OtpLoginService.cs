@@ -27,7 +27,7 @@ namespace Business.Services
             PersistentStorage = ApiResultIsCollection ? PersistentStorage.Collection : PersistentStorage.Single;
         }
 
-        public async Task<APIResult<LoginResponseDto>> 
+        public async Task<APIResult<object>> 
             GetAsync(string phoneNumber, string code)
         {
             #region 指定此次呼叫 Web API 要執行參數
@@ -48,7 +48,7 @@ namespace Business.Services
             //dic.Add(LOBGlobal.JSONDataKeyName, JsonConvert.SerializeObject(loginRequestDTO));
             #endregion
 
-            APIResult<LoginResponseDto> apiResult = 
+            APIResult<object> apiResult = 
                 await this.SendAsync(dic, HttpMethod.Get, CancellationToken.None);
             SetDefaultPersistentBehavior();
 
