@@ -7,6 +7,10 @@
              xmlns:model="clr-namespace:ChatApp.Models"
              x:DataType="viewModel:ChatRoomPageViewModel">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="新增" Command="{Binding AddNewChatRoomCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <Grid>
         <Grid
             ColumnDefinitions="*,*"

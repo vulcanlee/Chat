@@ -50,6 +50,12 @@ public partial class ChatRoomPageViewModel : ObservableObject, INavigatedAware
     {
 
     }
+
+    [RelayCommand]
+    async Task AddNewChatRoomAsync()
+    {
+        await navigationService.NavigateAsync("ChatRoomDetailPage");
+    }
     #endregion
 
     #region Navigation Event

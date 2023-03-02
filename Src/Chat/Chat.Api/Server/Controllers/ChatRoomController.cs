@@ -42,7 +42,6 @@ public class ChatRoomController : ControllerBase
         }
         #endregion
 
-
         #region 新增記錄前的紀錄完整性檢查
         VerifyRecordResult<ChatRoomDto> verify = await ChatRoomService.BeforeAddCheckAsync(data);
         if (verify.Success == false)
@@ -57,7 +56,7 @@ public class ChatRoomController : ControllerBase
         if (verifyRecordResult.Success)
         {
             apiResult = APIResultFactory.Build<ChatRoomDto>(true, StatusCodes.Status201Created,
-                "", payload: null);
+                "", payload: verifyRecordResult.Result);
         }
         else
         {

@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 
 namespace ChatApp.Models;
 
-public class ChatRoomModel : ObservableObject, ICloneable
+public partial class ChatRoomModel : ObservableObject, ICloneable
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public RoomTypeEnum RoomType { get; set; } = RoomTypeEnum.PRIVATE;
-    public DateTime? CreateAt { get; set; }
-    public DateTime? UpdateAt { get; set; }
+    [ObservableProperty]
+    public int id = 0;
+    [ObservableProperty]
+    public string name = string.Empty;
+    [ObservableProperty]
+    public RoomTypeEnum roomType  = RoomTypeEnum.PRIVATE;
+    [ObservableProperty]
+    public DateTime? createAt = default(DateTime);
+    [ObservableProperty]
+    public DateTime? updateAt = default(DateTime);
 
     #region 介面實作
-    public event PropertyChangedEventHandler PropertyChanged;
-
     public ChatRoomModel Clone()
     {
         return ((ICloneable)this).Clone() as ChatRoomModel;

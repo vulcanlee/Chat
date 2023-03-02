@@ -13,6 +13,7 @@ namespace CommonLibrary.Helpers.Magics
         public static readonly string CrudDeleteAction = "Delete";
         public static readonly string CrudRefreshAction = "Refresh";
         public static readonly string MasterRecordActionName = "MasterRecord";
+        public const string ChatRoomObjectKeyName = "ChatRoomObjectKey";
 
         public const string AppStatusFolder = "App";
         public const string AppStatusFile = "App";
