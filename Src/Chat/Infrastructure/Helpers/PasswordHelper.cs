@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonDomainLayer.Magics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,7 +13,7 @@ public static class PasswordHelper
     public static readonly string GodSalt版本 = "Version20230225";
     public static string GetPasswordSHA(string salt, string password)
     {
-        string assemblyPassword = $"{password}-{salt}@";
+        string assemblyPassword = $"{MagicObject.PasswordSaltPostfix},{password}-{salt}@";
         SHA256 sha = SHA256.Create();
         byte[] bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(assemblyPassword));
         StringBuilder builder = new StringBuilder();

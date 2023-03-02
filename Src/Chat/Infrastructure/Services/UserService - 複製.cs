@@ -6,12 +6,12 @@ namespace Infrastructure.Services;
 
 public class UserService1
 {
-    private readonly ILogger<UserService> logger;
+    private readonly ILogger<UserAuthService> logger;
     #region 欄位與屬性
     #endregion
 
     #region 建構式
-    public UserService1(ILogger<UserService> logger)
+    public UserService1(ILogger<UserAuthService> logger)
     {
         this.logger = logger;
     }

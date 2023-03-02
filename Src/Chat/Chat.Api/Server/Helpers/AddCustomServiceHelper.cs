@@ -15,12 +15,13 @@ namespace Chat.Api.Helpers
     {
         public static IServiceCollection AddProjetService(this IServiceCollection services)
         {
-            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserAuthService, UserAuthService>();
             services.AddTransient<IOtpService, OtpService>();
             services.AddTransient<IChatRoomService, ChatRoomService>();
             services.AddTransient<IChatRoomMemberService, ChatRoomMemberService>();
             services.AddTransient<IChatRoomMessageService, ChatRoomMessageService>();
             services.AddTransient<IExceptionRecordService, ExceptionRecordService>();
+            services.AddTransient<IUserService, UserService>();
             services.AddTransient<JwtGenerateHelper>();
             services.AddTransient<DatabaseInitService>();
             return services;

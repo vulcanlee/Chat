@@ -13,6 +13,7 @@ public partial class OtpCodePageViewModel : ObservableObject, INavigatedAware
     private readonly AppStatus appStatus;
     private readonly OtpVerifyCodeService otpVerifyCodeService;
     private readonly OtpLoginService otpLoginService;
+    private readonly UserService userService;
     #endregion
 
     #region Property Member
@@ -31,13 +32,15 @@ public partial class OtpCodePageViewModel : ObservableObject, INavigatedAware
     #region Constructor
     public OtpCodePageViewModel(INavigationService navigationService,
         IPageDialogService dialogService, AppStatus appStatus,
-        OtpVerifyCodeService otpVerifyCodeService, OtpLoginService otpLoginService)
+        OtpVerifyCodeService otpVerifyCodeService, OtpLoginService otpLoginService,
+        UserService userService)
     {
         this.navigationService = navigationService;
         this.dialogService = dialogService;
         this.appStatus = appStatus;
         this.otpVerifyCodeService = otpVerifyCodeService;
         this.otpLoginService = otpLoginService;
+        this.userService = userService;
 
 #if DEBUG
         phoneNumber = "0912345678";
@@ -62,15 +65,26 @@ public partial class OtpCodePageViewModel : ObservableObject, INavigatedAware
             await dialogService.DisplayAlertAsync("錯誤", apiResult.Message, "確定");
         }
     }
+
     [RelayCommand]
     async Task SendVerifyCode()
     {
-        var apiResult = await otpLoginService.GetAsync(PhoneNumber,Code);
-        if (apiResult.Status==true)
+        var apiResult = await otpLoginService.GetAsync(PhoneNumber, Code);
+        if (apiResult.Status == true)
         {
             await appStatus.FromLoginResponseDtoAsync(otpLoginService.SingleItem);
-
-            await navigationService.NavigateAsync("/FOPage/NaviPage/HomePage");
+            apiResult = await userService.GetAsync(otpLoginService.SingleItem.Id);
+            if (apiResult.Status == true)
+            {
+                appStatus.User = userService.SingleItem;
+                await appStatus.WriteAsync();
+                await navigationService.NavigateAsync("/FOPage/NaviPage/HomePage");
+                return;
+            }
+            else
+            {
+                await dialogService.DisplayAlertAsync("錯誤", apiResult.Message, "確定");
+            }
         }
         else
         {

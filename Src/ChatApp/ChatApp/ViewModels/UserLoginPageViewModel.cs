@@ -12,6 +12,7 @@ public partial class UserLoginPageViewModel : ObservableObject, INavigatedAware
     private readonly IPageDialogService dialogService;
     private readonly AppStatus appStatus;
     private readonly UserLoginService userLoginService;
+    private readonly UserService userService;
     #endregion
 
     #region Property Member
@@ -26,12 +27,17 @@ public partial class UserLoginPageViewModel : ObservableObject, INavigatedAware
     #region Constructor
     public UserLoginPageViewModel(INavigationService navigationService,
         IPageDialogService dialogService,AppStatus appStatus,
-        UserLoginService userLoginService)
+        UserLoginService userLoginService, UserService userService)
     {
         this.navigationService = navigationService;
         this.dialogService = dialogService;
         this.appStatus = appStatus;
         this.userLoginService = userLoginService;
+        this.userService = userService;
+#if DEBUG
+        Account = "user9";
+        Password = "123";
+#endif
     }
     #endregion
 
@@ -48,8 +54,18 @@ public partial class UserLoginPageViewModel : ObservableObject, INavigatedAware
         if (apiResult.Status == true)
         {
             await appStatus.FromLoginResponseDtoAsync(userLoginService.SingleItem);
-
-            await navigationService.NavigateAsync("/FOPage/NaviPage/HomePage");
+            apiResult = await userService.GetAsync(userLoginService.SingleItem.Id);
+            if (apiResult.Status == true)
+            {
+                appStatus.User = userService.SingleItem;
+                await appStatus.WriteAsync();
+                await navigationService.NavigateAsync("/FOPage/NaviPage/HomePage");
+                return;
+            }
+            else
+            {
+                await dialogService.DisplayAlertAsync("錯誤", apiResult.Message, "確定");
+            }
         }
         else
         {

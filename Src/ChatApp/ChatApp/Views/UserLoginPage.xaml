@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Page Title"
+             Title="使用者帳號登入"
              x:Class="ChatApp.Views.UserLoginPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
              x:DataType="viewModel:UserLoginPageViewModel">
 
     <Grid>
         <VerticalStackLayout
-             HorizontalOptions="Center" VerticalOptions="Center"
+             HorizontalOptions="Fill" VerticalOptions="Center"
             Margin="30">
             <VerticalStackLayout 
                 >

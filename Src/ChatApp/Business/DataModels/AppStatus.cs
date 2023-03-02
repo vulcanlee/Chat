@@ -10,6 +10,7 @@ namespace Business.DataModel
     public class AppStatus
     {
         public SystemStatus SystemStatus { get; set; } = new SystemStatus();
+        public UserDto User { get; set; } = new();
         public string NotificationToken { get; set; } = "";
 
         public async Task LogoutAsync()
@@ -39,13 +40,13 @@ namespace Business.DataModel
         {
             var appState = await StorageJSONService<AppStatus>
                 .ReadFromFileAsync(MagicObject.AppStatusFolder, MagicObject.AppStatusFile);
-            if(appState == null)
+            if (appState == null)
             {
                 appState = new();
             }
 
-            SystemStatus= appState.SystemStatus;
-            NotificationToken= appState.NotificationToken;
+            SystemStatus = appState.SystemStatus;
+            NotificationToken = appState.NotificationToken;
         }
 
         public async Task WriteAsync()

@@ -8,16 +8,17 @@ using DomainData.Models;
 using Infrastructure.Helpers;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Services;
 
-public class UserService : IUserService
+public class UserAuthService : IUserAuthService
 {
     private readonly ChatDBContext context;
 
     public IMapper Mapper { get; }
 
-    public UserService(ChatDBContext context, IMapper mapper)
+    public UserAuthService(ChatDBContext context, IMapper mapper)
     {
         this.context = context;
         Mapper = mapper;
@@ -220,5 +221,30 @@ public class UserService : IUserService
         {
         }
         return;
+    }
+
+    public async Task<(User, string)>
+        CheckUserAsync(string account, string password)
+    {
+        var checkUser = await context.User
+            .FirstOrDefaultAsync(x => x.Account.ToLower() == account.ToLower());
+
+        await Task.Yield();
+
+        if (checkUser != null)
+        {
+            string passwordWithSalt = PasswordHelper
+                .GetPasswordSHA(checkUser.Salt, password);
+            if (passwordWithSalt != checkUser.Password)
+            {
+                return (null, "帳號或密碼不正確");
+            }
+
+        }
+        else
+        {
+            return (null, "帳號或密碼不正確");
+        }
+        return (checkUser, "");
     }
 }

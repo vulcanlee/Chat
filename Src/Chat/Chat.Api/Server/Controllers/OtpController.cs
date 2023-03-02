@@ -18,12 +18,12 @@ namespace Chat.Api.Controllers
     [ApiController]
     public class OtpController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IUserAuthService userService;
         private readonly IOtpService otpService;
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
-        public OtpController(IUserService userService, IOtpService otpService,
+        public OtpController(IUserAuthService userService, IOtpService otpService,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
         {
             this.userService = userService;

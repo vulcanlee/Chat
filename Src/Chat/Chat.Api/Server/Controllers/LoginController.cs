@@ -19,12 +19,12 @@ namespace Chat.Api.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IUserAuthService userService;
         private readonly IMapper mapper;
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
-        public LoginController(IUserService userService, IMapper mapper,
+        public LoginController(IUserAuthService userService, IMapper mapper,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
         {
             this.userService = userService;
