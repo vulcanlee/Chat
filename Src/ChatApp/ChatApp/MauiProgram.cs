@@ -13,6 +13,11 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
+
+        #region AutoMapper 服務註冊
+        builder.Services.AddAutoMapper(c => c.AddProfile<AutoMapping>());
+        #endregion
+
         builder
             .UseMauiApp<App>()
             .UsePrism(prism =>
@@ -42,6 +47,7 @@ public static class MauiProgram
                           container.Register<OtpVerifyCodeService>();
                           container.Register<UserLoginService>();
                           container.Register<UserService>();
+                          container.Register<ChatRoomService>();
                           #endregion
                       })
                      .OnInitialized(() =>

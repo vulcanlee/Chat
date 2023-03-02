@@ -1,12 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Page Title"
+             Title="聊天室清單"
              x:Class="ChatApp.Views.ChatRoomPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
+             xmlns:model="clr-namespace:ChatApp.Models"
              x:DataType="viewModel:ChatRoomPageViewModel">
 
-  <Grid>
-  </Grid>
+    <Grid>
+        <Grid
+            ColumnDefinitions="*,*"
+            ColumnSpacing="5"
+            RowDefinitions="*,Auto"
+            RowSpacing="0"
+            >
+
+            <RefreshView
+                Grid.ColumnSpan="2"
+                Command="{Binding GetChatRoomCommand}"
+                IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView
+                    ItemsSource="{Binding ChatRooms}"
+                    BackgroundColor="Transparent"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ChatRoomModel">
+                            <Grid Padding="10">
+                                <Border BackgroundColor="LightYellow"
+                                        >
+                                    
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+
+            <!--<ActivityIndicator
+                Grid.RowSpan="2" Grid.ColumnSpan="2"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="CenterAndExpand"
+                IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                />-->
+        </Grid>
+
+    </Grid>
 
 </ContentPage>

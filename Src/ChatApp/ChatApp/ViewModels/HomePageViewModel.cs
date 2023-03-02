@@ -21,6 +21,11 @@ public partial class HomePageViewModel : ObservableObject, INavigatedAware
 
     #region Method Member
     #region Command Method
+    [RelayCommand]
+    async Task GotoChatRoomAsync()
+    {
+        await navigationService.NavigateAsync("ChatRoomPage");
+    }
     #endregion
 
     #region Navigation Event
