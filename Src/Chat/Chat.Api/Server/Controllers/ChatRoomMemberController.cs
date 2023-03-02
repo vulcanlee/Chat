@@ -57,7 +57,7 @@ public class ChatRoomMemberController : ControllerBase
         if (verifyRecordResult.Success)
         {
             apiResult = APIResultFactory.Build<ChatRoomMemberDto>(true, StatusCodes.Status201Created,
-                "", payload: null);
+                "", payload: verifyRecordResult.Result);
         }
         else
         {

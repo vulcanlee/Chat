@@ -16,6 +16,13 @@ public class AutoMapping : Profile
         #region DTO - Model 對應關係宣告
         CreateMap<ChatRoomModel, ChatRoomDto>();
         CreateMap<ChatRoomDto, ChatRoomModel>();
+
+        CreateMap<UserModel, UserDto>();
+        CreateMap<UserDto, UserModel>();
+
+        CreateMap<ChatRoomMemberModel, ChatRoomMemberDto>();
+        CreateMap<ChatRoomMemberDto, ChatRoomMemberModel>();
+
         #endregion
     }
 }

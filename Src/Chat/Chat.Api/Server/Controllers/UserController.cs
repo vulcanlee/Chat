@@ -57,7 +57,7 @@ public class UserController : ControllerBase
         if (verifyRecordResult.Success)
         {
             apiResult = APIResultFactory.Build<UserDto>(true, StatusCodes.Status201Created,
-                "", payload: null);
+                "", payload: verifyRecordResult.Result);
         }
         else
         {

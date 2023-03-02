@@ -49,6 +49,7 @@ public static class MauiProgram
                           container.Register<UserLoginService>();
                           container.Register<UserService>();
                           container.Register<ChatRoomService>();
+                          container.Register<ChatRoomMemberService>();
                           #endregion
                       })
                      .OnInitialized(() =>
