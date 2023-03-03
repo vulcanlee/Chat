@@ -19,6 +19,8 @@ public partial class ChatRoomMemberModel : ObservableObject, ICloneable
     [ObservableProperty]
     public int userId = 0;
     [ObservableProperty]
+    public UserModel user;
+    [ObservableProperty]
     public string name = string.Empty;
     [ObservableProperty]
     public RoomTypeEnum roomType  = RoomTypeEnum.PRIVATE;
@@ -28,8 +30,6 @@ public partial class ChatRoomMemberModel : ObservableObject, ICloneable
     public DateTime? updateAt = default(DateTime);
 
 
-    public UserDto User { get; set; }
-    public DateTime? CreateAt { get; set; }
 
     #region 介面實作
     public ChatRoomMemberModel Clone()

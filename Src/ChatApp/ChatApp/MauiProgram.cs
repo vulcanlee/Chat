@@ -36,6 +36,7 @@ public static class MauiProgram
                           container.RegisterForNavigation<OtpCodePage, OtpCodePageViewModel>();
                           container.RegisterForNavigation<LoginPage, LoginPageViewModel>();
                           container.RegisterForNavigation<UserLoginPage, UserLoginPageViewModel>();
+                          container.RegisterForNavigation<UserListPage, UserListPageViewModel>();
                           container.RegisterForNavigation<ChatRoomPage, ChatRoomPageViewModel>();
                           container.RegisterForNavigation<ChatRoomDetailPage, ChatRoomDetailPageViewModel>();
                           container.RegisterForNavigation<AboutPage, AboutPageViewModel>();

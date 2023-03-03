@@ -7,9 +7,15 @@
              x:DataType="viewModel:HomePageViewModel">
 
     <Grid>
-        <Button Text="切換到聊天室"
+        <VerticalStackLayout
+            HorizontalOptions="Fill" VerticalOptions="Center">
+            <Button Text="切換到聊天室"
                 HorizontalOptions="Center" VerticalOptions="Center"
                 Command="{Binding GotoChatRoomCommand}"/>
+            <Button Text="切換到使用者清單"
+                HorizontalOptions="Center" VerticalOptions="Center"
+                Command="{Binding GotoUserListCommand}"/>
+        </VerticalStackLayout>
     </Grid>
 
 </ContentPage>

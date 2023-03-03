@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="使用者清單"
+             x:Class="ChatApp.Views.UserListPage"
+             xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
+             xmlns:model="clr-namespace:ChatApp.Models"
+             x:DataType="viewModel:UserListPageViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="更新" Command="{Binding TapRefreshCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Grid
+            ColumnDefinitions="*" RowDefinitions="*"
+            ColumnSpacing="0" RowSpacing="0"
+            >
+
+            <RefreshView
+                Grid.ColumnSpan="2"
+                Command="{Binding TapRefreshCommand}"
+                IsRefreshing="{Binding IsRefreshing}">
+                <CollectionView
+                    ItemsSource="{Binding Users}"
+                    BackgroundColor="Transparent"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:UserModel">
+                            <Grid Padding="10">
+                                <Border BackgroundColor="LightYellow"
+                                        >
+
+                                </Border>
+                                <VerticalStackLayout
+                                    HorizontalOptions="Fill" VerticalOptions="Start"
+                                    >
+                                    <Label Text="{Binding Account}"/>
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text="{Binding Account}"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+
+            <!--<ActivityIndicator
+                Grid.RowSpan="2" Grid.ColumnSpan="2"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="CenterAndExpand"
+                IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"
+                />-->
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
