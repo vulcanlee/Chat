@@ -4,15 +4,18 @@
              Title="聊天室紀錄"
              x:Class="ChatApp.Views.ChatRoomDetailPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
+             xmlns:model="clr-namespace:ChatApp.Models"
              x:DataType="viewModel:ChatRoomDetailPageViewModel"
              BackgroundColor="LightGoldenrodYellow">
 
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="加入" Command="{Binding JoinCommand}"/>
         <ToolbarItem Text="取消" Command="{Binding CalcelCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <Grid>
+    <Grid RowDefinitions="auto,*">
         <VerticalStackLayout
+            Grid.Row="0"
             Margin="30,30"
             >
             <Label Text="聊天室名稱"
@@ -28,6 +31,41 @@
                     Command="{Binding SaveCommand}"
                     />
         </VerticalStackLayout>
+
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*" RowDefinitions="30,*"
+            ColumnSpacing="0" RowSpacing="0"
+            Margin="30,0,30,30"
+            >
+
+            <Label Text="成員清單"/>
+            <Grid>
+                <CollectionView
+                    ItemsSource="{Binding Users}"
+                    BackgroundColor="Transparent"
+                    SelectionMode="None">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:UserModel">
+                            <Grid Padding="10">
+                                <Border BackgroundColor="LightYellow"
+                                        >
+
+                                </Border>
+                                <VerticalStackLayout
+                                    HorizontalOptions="Fill" VerticalOptions="Start"
+                                    >
+                                    <Label Text="{Binding Account}"/>
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text="{Binding Account}"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Grid>
     </Grid>
 
 </ContentPage>

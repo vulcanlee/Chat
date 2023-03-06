@@ -5,6 +5,7 @@
              x:Class="ChatApp.Views.UserListPage"
              xmlns:viewModel="clr-namespace:ChatApp.ViewModels"
              xmlns:model="clr-namespace:ChatApp.Models"
+             xmlns:helpers="clr-namespace:ChatApp.Helpers"
              x:DataType="viewModel:UserListPageViewModel">
 
     <ContentPage.ToolbarItems>
@@ -18,7 +19,6 @@
             >
 
             <RefreshView
-                Grid.ColumnSpan="2"
                 Command="{Binding TapRefreshCommand}"
                 IsRefreshing="{Binding IsRefreshing}">
                 <CollectionView
@@ -28,18 +28,39 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:UserModel">
-                            <Grid Padding="10">
-                                <Border BackgroundColor="LightYellow"
+                            <Grid>
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems SwipeBehaviorOnInvoked="Auto">
+                                            <SwipeItem Text="加入"
+                                                       BackgroundColor="LightGreen"
+                                                       Command="{Binding Path=TapUserCommand,
+                                                Source={RelativeSource AncestorType={x:Type viewModel:UserListPageViewModel}}}"
+                                                       CommandParameter="{Binding .}"
+                                                       >
+                                                <SwipeItem.IconImageSource>
+                                                        <FontImageSource FontFamily="{Binding Source={Static helpers:MagicValue.FontName}}" 
+                                                                         Glyph="{Binding Source={Static helpers:IconFont.ChatPlus}}"
+                                                                         />
+                                            </SwipeItem.IconImageSource>
+                                            </SwipeItem>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <!-- Content -->
+                                    <Grid Padding="10">
+                                        <Border BackgroundColor="LightYellow"
                                         >
 
-                                </Border>
-                                <VerticalStackLayout
-                                    HorizontalOptions="Fill" VerticalOptions="Start"
-                                    >
-                                    <Label Text="{Binding Account}"/>
-                                    <Label Text="{Binding Name}"/>
-                                    <Label Text="{Binding Account}"/>
-                                </VerticalStackLayout>
+                                        </Border>
+                                        <VerticalStackLayout
+                                            HorizontalOptions="Fill" VerticalOptions="Start"
+                                            >
+                                            <Label Text="{Binding Account}"/>
+                                            <Label Text="{Binding Name}"/>
+                                            <Label Text="{Binding Account}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </SwipeView>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

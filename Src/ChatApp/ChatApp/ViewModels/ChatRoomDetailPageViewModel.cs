@@ -5,6 +5,7 @@ using CommonLibrary.Helpers.Magics;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DataTransferObject.Dtos;
+using System.Collections.ObjectModel;
 
 namespace ChatApp.ViewModels;
 
@@ -21,6 +22,8 @@ public partial class ChatRoomDetailPageViewModel : ObservableObject, INavigatedA
     #region Property Member
     [ObservableProperty]
     ChatRoomModel currentChatRoom = new ChatRoomModel();
+    [ObservableProperty]
+    ObservableCollection<UserModel> users = new();
     #endregion
 
     #region Constructor
@@ -58,6 +61,12 @@ public partial class ChatRoomDetailPageViewModel : ObservableObject, INavigatedA
     async Task CalcelAsync()
     {
         await navigationService.GoBackAsync();
+    }
+
+    [RelayCommand]
+    async Task JoinAsync()
+    {
+        await navigationService.NavigateAsync("UserListPage");
     }
     #endregion
 

@@ -14,6 +14,7 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
     private readonly IPageDialogService dialogService;
     private readonly IMapper mapper;
     private readonly UserService userService;
+    private readonly IEventAggregator eventAggregator;
     #endregion
 
     #region Property Member
@@ -27,12 +28,13 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
     #region Constructor
     public UserListPageViewModel(INavigationService navigationService,
         IPageDialogService dialogService,IMapper mapper,
-        UserService userService)
+        UserService userService, IEventAggregator eventAggregator)
     {
         this.navigationService = navigationService;
         this.dialogService = dialogService;
         this.mapper = mapper;
         this.userService = userService;
+        this.eventAggregator = eventAggregator;
     }
     #endregion
 
@@ -43,6 +45,13 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
     {
         await RefreshAsync();
     }
+
+    [RelayCommand]
+    async Task TapUserAsync(UserModel userModel)
+    {
+        await RefreshAsync();
+    }
+
     #endregion
 
     #region Navigation Event
