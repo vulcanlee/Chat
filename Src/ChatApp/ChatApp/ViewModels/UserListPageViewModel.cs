@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.Events;
 using Business.Services;
 using ChatApp.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -27,7 +28,7 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
 
     #region Constructor
     public UserListPageViewModel(INavigationService navigationService,
-        IPageDialogService dialogService,IMapper mapper,
+        IPageDialogService dialogService, IMapper mapper,
         UserService userService, IEventAggregator eventAggregator)
     {
         this.navigationService = navigationService;
@@ -47,9 +48,14 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
     }
 
     [RelayCommand]
-    async Task TapUserAsync(UserModel userModel)
+    async Task TapUserAsync(UserModel user)
     {
-        await RefreshAsync();
+        await Task.Yield();
+        eventAggregator.GetEvent<ChatMemberAddRemoveEvent>().Publish(new ChatMemberAddRemovePayload()
+        {
+            ChatMemberChangeAction = ChatMemberChangeActionEnum.Add,
+            User = user,
+        });
     }
 
     #endregion
@@ -61,7 +67,7 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
 
     public async void OnNavigatedTo(INavigationParameters parameters)
     {
-        if(parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.New)
+        if (parameters.GetNavigationMode() == Prism.Navigation.NavigationMode.New)
         {
             await RefreshAsync();
         }
@@ -73,7 +79,7 @@ public partial class UserListPageViewModel : ObservableObject, INavigatedAware
     {
         IsRefreshing = true;
         var apiResult = await userService.GetAsync();
-        if (apiResult.Status==false)
+        if (apiResult.Status == false)
         {
             await dialogService.DisplayAlertAsync("錯誤",
                 apiResult.Message, "確定");

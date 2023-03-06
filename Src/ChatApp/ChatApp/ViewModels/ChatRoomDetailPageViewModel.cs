@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.Events;
 using Business.Services;
 using ChatApp.Models;
 using CommonLibrary.Helpers.Magics;
@@ -16,6 +17,7 @@ public partial class ChatRoomDetailPageViewModel : ObservableObject, INavigatedA
     private readonly IPageDialogService dialogService;
     private readonly IMapper mapper;
     private readonly ChatRoomService chatRoomService;
+    private readonly IEventAggregator eventAggregator;
     string crudActionName = string.Empty;
     #endregion
 
@@ -29,12 +31,24 @@ public partial class ChatRoomDetailPageViewModel : ObservableObject, INavigatedA
     #region Constructor
     public ChatRoomDetailPageViewModel(INavigationService navigationService,
         IPageDialogService dialogService, IMapper mapper,
-        ChatRoomService chatRoomService)
+        ChatRoomService chatRoomService, IEventAggregator eventAggregator)
     {
         this.navigationService = navigationService;
         this.dialogService = dialogService;
         this.mapper = mapper;
         this.chatRoomService = chatRoomService;
+        this.eventAggregator = eventAggregator;
+
+        #region 訂閱使用者有異動事件
+        SubscriptionToken token = eventAggregator.GetEvent<ChatMemberAddRemoveEvent>().Subscribe(payload =>
+        {
+            var aUser = users.FirstOrDefault(x => x.id == payload.User.id);
+            if (aUser == null)
+            {
+                Users.Add(payload.User);
+            }
+        });
+        #endregion
     }
     #endregion
 
@@ -43,7 +57,7 @@ public partial class ChatRoomDetailPageViewModel : ObservableObject, INavigatedA
     [RelayCommand]
     async Task SaveAsync()
     {
-        if(string.IsNullOrEmpty(CurrentChatRoom.Name))
+        if (string.IsNullOrEmpty(CurrentChatRoom.Name))
         {
             await dialogService.DisplayAlertAsync("操作錯誤",
                 "聊天室名稱不可為空白", "確定");
@@ -91,7 +105,7 @@ public partial class ChatRoomDetailPageViewModel : ObservableObject, INavigatedA
                     RoomType = CommonShareDomain.Enums.RoomTypeEnum.PRIVATE,
                 };
             }
-            else if(crudActionName == MagicObject.CrudEditAction)
+            else if (crudActionName == MagicObject.CrudEditAction)
             {
                 CurrentChatRoom = parameters.GetValue<ChatRoomModel>(MagicObject.ChatRoomObjectKeyName);
             }

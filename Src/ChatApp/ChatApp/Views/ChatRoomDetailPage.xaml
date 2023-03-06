@@ -40,7 +40,7 @@
             >
 
             <Label Text="成員清單"/>
-            <Grid>
+            <Grid Grid.Row="1">
                 <CollectionView
                     ItemsSource="{Binding Users}"
                     BackgroundColor="Transparent"
@@ -48,7 +48,7 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:UserModel">
-                            <Grid Padding="10">
+                            <Grid Padding="0">
                                 <Border BackgroundColor="LightYellow"
                                         >
 
