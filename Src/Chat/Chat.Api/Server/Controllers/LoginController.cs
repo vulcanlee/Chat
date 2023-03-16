@@ -22,16 +22,22 @@ namespace Chat.Api.Controllers
         private readonly IUserAuthService userService;
         private readonly IMapper mapper;
         private readonly JwtGenerateHelper jwtGenerateHelper;
+        private readonly ILogger<LoginController> logger;
         private readonly JwtConfiguration jwtConfiguration;
 
         public LoginController(IUserAuthService userService, IMapper mapper,
-            JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration)
+            JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration,
+            ILogger<LoginController> logger)
         {
             this.userService = userService;
             this.mapper = mapper;
             this.jwtGenerateHelper = jwtGenerateHelper;
+            this.logger = logger;
             this.jwtConfiguration = jwtConfiguration.Value;
+
+            logger.LogInformation($"LoginController 建構式");
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<APIResult<LoginResponseDto>>>
@@ -39,6 +45,7 @@ namespace Chat.Api.Controllers
         {
             APIResult<LoginResponseDto> apiResult;
             await Task.Yield();
+            logger.LogInformation($"執行登入");
             if (ModelState.IsValid == false)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
