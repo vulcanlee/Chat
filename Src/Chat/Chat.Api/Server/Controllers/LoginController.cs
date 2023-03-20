@@ -45,7 +45,7 @@ namespace Chat.Api.Controllers
         {
             APIResult<LoginResponseDto> apiResult;
             await Task.Yield();
-            logger.LogInformation($"執行登入");
+            logger.LogInformation(new EventId(28,""),$"執行登入");
             if (ModelState.IsValid == false)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
