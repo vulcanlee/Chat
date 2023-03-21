@@ -9,6 +9,7 @@ using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System.Data;
 using System.Security.Claims;
 
@@ -59,7 +60,8 @@ namespace Chat.Api.Controllers
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
                     StatusCodes.Status200OK,
                     "傳送過來的資料有問題");
-                logger.LogWarning($"登入失敗", apiResult);
+                logger.LogWarning($"登入失敗" + Environment.NewLine +
+                    JsonConvert.SerializeObject(apiResult));
                 return BadRequest(apiResult);
             }
 
@@ -71,7 +73,8 @@ namespace Chat.Api.Controllers
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
                     StatusCodes.Status400BadRequest, "帳號或密碼不正確");
-                logger.LogWarning($"登入失敗,帳號或密碼不正確", apiResult);
+                logger.LogWarning($"登入失敗,帳號或密碼不正確 " + Environment.NewLine +
+                    JsonConvert.SerializeObject(apiResult));
                 return BadRequest(apiResult);
             }
 
@@ -120,7 +123,8 @@ namespace Chat.Api.Controllers
                "", payload: LoginResponseDTO);
             loggerHelper.SendLog(() =>
             {
-                logger.LogDebug($"登入成功且已經產生 Access Token", apiResult);
+                logger.LogDebug($"登入成功且已經產生 Access Token " + Environment.NewLine +
+                    JsonConvert.SerializeObject(apiResult));
             }, EngineerModeCodeEnum.登出登入);
             return Ok(apiResult);
 
