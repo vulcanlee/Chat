@@ -7,6 +7,7 @@ using DataTransferObject.Dtos;
 using DomainData.Models;
 using Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -123,7 +124,7 @@ namespace Chat.Api.Controllers
                "", payload: LoginResponseDTO);
             loggerHelper.SendLog(() =>
             {
-                logger.LogDebug($"登入成功且已經產生 Access Token " + Environment.NewLine +
+                logger.LogDebug("登入成功且已經產生 Access Token {apiResult}",
                     JsonConvert.SerializeObject(apiResult));
             }, EngineerModeCodeEnum.登出登入);
             return Ok(apiResult);
