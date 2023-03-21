@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Business.Helpers;
+
+public class EngineerModeData
+{
+    public EngineerModeCodeEnum EngineerCode { get; set; } = EngineerModeCodeEnum.All;
+}
+
+[Flags]
+public enum EngineerModeCodeEnum
+{
+    None = 0,
+    登出登入 = 1,
+    資料庫存取 = 2,
+    讀卡機操作 = 4,
+    MQTT = 8,
+    呼叫WebAPI = 16,
+    All = 登出登入 | 資料庫存取 | 讀卡機操作 | MQTT | 呼叫WebAPI
+}

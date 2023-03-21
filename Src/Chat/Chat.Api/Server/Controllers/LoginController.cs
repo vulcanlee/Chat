@@ -23,19 +23,24 @@ namespace Chat.Api.Controllers
         private readonly IMapper mapper;
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly ILogger<LoginController> logger;
+        private readonly LoggerHelper loggerHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
         public LoginController(IUserAuthService userService, IMapper mapper,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration,
-            ILogger<LoginController> logger)
+            ILogger<LoginController> logger, LoggerHelper loggerHelper)
         {
             this.userService = userService;
             this.mapper = mapper;
             this.jwtGenerateHelper = jwtGenerateHelper;
             this.logger = logger;
+            this.loggerHelper = loggerHelper;
             this.jwtConfiguration = jwtConfiguration.Value;
 
-            logger.LogInformation($"LoginController 建構式");
+            loggerHelper.SendLog(() =>
+            {
+                logger.LogDebug($"LoginController 建構式");
+            }, EngineerModeCodeEnum.登出登入);
         }
 
         [AllowAnonymous]
@@ -45,12 +50,16 @@ namespace Chat.Api.Controllers
         {
             APIResult<LoginResponseDto> apiResult;
             await Task.Yield();
-            logger.LogInformation(new EventId(28,""),$"執行登入");
+            loggerHelper.SendLog(() =>
+            {
+                logger.LogInformation($"執行登入 Post()");
+            }, EngineerModeCodeEnum.登出登入);
             if (ModelState.IsValid == false)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
                     StatusCodes.Status200OK,
                     "傳送過來的資料有問題");
+                logger.LogWarning($"登入失敗", apiResult);
                 return BadRequest(apiResult);
             }
 
@@ -62,6 +71,7 @@ namespace Chat.Api.Controllers
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
                     StatusCodes.Status400BadRequest, "帳號或密碼不正確");
+                logger.LogWarning($"登入失敗,帳號或密碼不正確", apiResult);
                 return BadRequest(apiResult);
             }
 
@@ -108,6 +118,10 @@ namespace Chat.Api.Controllers
 
             apiResult = APIResultFactory.Build<LoginResponseDto>(true, StatusCodes.Status200OK,
                "", payload: LoginResponseDTO);
+            loggerHelper.SendLog(() =>
+            {
+                logger.LogDebug($"登入成功且已經產生 Access Token", apiResult);
+            }, EngineerModeCodeEnum.登出登入);
             return Ok(apiResult);
 
         }

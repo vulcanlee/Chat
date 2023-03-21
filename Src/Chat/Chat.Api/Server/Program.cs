@@ -173,6 +173,11 @@ try
     builder.Services.AddSignalR();
     #endregion
 
+    #region 工程除錯模式用服務
+    builder.Services.AddSingleton<EngineerModeData>(new EngineerModeData());
+    builder.Services.AddTransient<LoggerHelper>();
+    #endregion
+
     #endregion
 
     var app = builder.Build();
