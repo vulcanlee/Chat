@@ -4,6 +4,7 @@ using Business.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Chat.Api.Helpers;
 
@@ -32,21 +33,25 @@ public class RequestResponseLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
+        DateTime begin = DateTime.Now;
         try
         {
-            DateTime begin = DateTime.Now;
             // 記錄 HTTP 請求
             await LogRequest(context);
 
             // 呼叫下一個 Middleware
             await next(context);
 
-            // 記錄 HTTP 回應
-            await LogResponse(context, begin);
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, $"發生例外異常 {ex.Message}");
+            //logger.LogError(ex, $"發生例外異常 {ex.Message}");
+            throw;
+        }
+        finally
+        {
+            // 記錄 HTTP 回應
+            await LogResponse(context, begin);
         }
     }
     private async Task LogRequest(HttpContext context)

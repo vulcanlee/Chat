@@ -56,6 +56,8 @@ namespace Chat.Api.Controllers
             {
                 logger.LogInformation($"執行登入 Post()");
             }, EngineerModeCodeEnum.登出登入);
+
+            //throw new NotImplementedException();
             if (ModelState.IsValid == false)
             {
                 apiResult = APIResultFactory.Build<LoginResponseDto>(false,
