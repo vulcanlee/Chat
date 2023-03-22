@@ -51,38 +51,40 @@ namespace Chat.Api.Controllers
             Post(LoginRequestDto loginRequestDTO)
         {
             APIResult<LoginResponseDto> apiResult;
-            await Task.Yield();
-            loggerHelper.SendLog(() =>
+            using (var perf = PerformanceMeter<LoginController>.StartWatch(logger, loggerHelper, "登入 API"))
             {
-                logger.LogInformation($"執行登入 Post()");
-            }, EngineerModeCodeEnum.登出登入);
+                await Task.Yield();
+                loggerHelper.SendLog(() =>
+                {
+                    logger.LogInformation($"執行登入 Post()");
+                }, EngineerModeCodeEnum.登出登入);
 
-            //throw new NotImplementedException();
-            if (ModelState.IsValid == false)
-            {
-                apiResult = APIResultFactory.Build<LoginResponseDto>(false,
-                    StatusCodes.Status200OK,
-                    "傳送過來的資料有問題");
-                logger.LogWarning($"登入失敗" + Environment.NewLine +
-                    JsonConvert.SerializeObject(apiResult));
-                return BadRequest(apiResult);
-            }
+                //throw new NotImplementedException();
+                if (ModelState.IsValid == false)
+                {
+                    apiResult = APIResultFactory.Build<LoginResponseDto>(false,
+                        StatusCodes.Status200OK,
+                        "傳送過來的資料有問題");
+                    logger.LogWarning($"登入失敗" + Environment.NewLine +
+                        JsonConvert.SerializeObject(apiResult));
+                    return BadRequest(apiResult);
+                }
 
-            (User user, string message) =
-                await userService.CheckUserAsync(loginRequestDTO.Account,
-                loginRequestDTO.Password);
+                (User user, string message) =
+                    await userService.CheckUserAsync(loginRequestDTO.Account,
+                    loginRequestDTO.Password);
 
-            if (user == null)
-            {
-                apiResult = APIResultFactory.Build<LoginResponseDto>(false,
-                    StatusCodes.Status400BadRequest, "帳號或密碼不正確");
-                logger.LogWarning($"登入失敗,帳號或密碼不正確 " + Environment.NewLine +
-                    JsonConvert.SerializeObject(apiResult));
-                return BadRequest(apiResult);
-            }
+                if (user == null)
+                {
+                    apiResult = APIResultFactory.Build<LoginResponseDto>(false,
+                        StatusCodes.Status400BadRequest, "帳號或密碼不正確");
+                    logger.LogWarning($"登入失敗,帳號或密碼不正確 " + Environment.NewLine +
+                        JsonConvert.SerializeObject(apiResult));
+                    return BadRequest(apiResult);
+                }
 
-            #region 產生存取權杖與更新權杖
-            var claims = new List<Claim>()
+                #region 產生存取權杖與更新權杖
+                var claims = new List<Claim>()
             {
                 new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleUser),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
@@ -90,45 +92,47 @@ namespace Chat.Api.Controllers
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
 
-            #region 授予 Emily 具有管理者角色
-            if (user.Account.ToLower() == "emily")
-            {
-                claims.Add(new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleAdmin));
-            }
-            #endregion
+                #region 授予 Emily 具有管理者角色
+                if (user.Account.ToLower() == "emily")
+                {
+                    claims.Add(new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleAdmin));
+                }
+                #endregion
 
-            string token = jwtGenerateHelper.GenerateAccessToken(user,
-                claims, jwtConfiguration);
+                string token = jwtGenerateHelper.GenerateAccessToken(user,
+                    claims, jwtConfiguration);
 
-            claims = new List<Claim>()
+                claims = new List<Claim>()
             {
                 new Claim(MagicObject.ClaimTypeRoleNameSymbol, MagicObject.RoleRefreshToken),
                 new Claim(ClaimTypes.NameIdentifier, user.Account),
                 new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
             };
-            string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user,
-                claims, jwtConfiguration);
-            #endregion
+                string refreshToken = jwtGenerateHelper.GenerateRefreshToken(user,
+                    claims, jwtConfiguration);
+                #endregion
 
-            LoginResponseDto LoginResponseDTO = new LoginResponseDto()
-            {
-                Account = loginRequestDTO.Account,
-                Id = user.Id,
-                Name = loginRequestDTO.Account,
-                Token = token,
-                TokenExpireMinutes = jwtConfiguration.JwtExpireMinutes,
-                RefreshToken = refreshToken,
-                RefreshTokenExpireDays = jwtConfiguration.JwtRefreshExpireDays,
-            };
+                LoginResponseDto LoginResponseDTO = new LoginResponseDto()
+                {
+                    Account = loginRequestDTO.Account,
+                    Id = user.Id,
+                    Name = loginRequestDTO.Account,
+                    Token = token,
+                    TokenExpireMinutes = jwtConfiguration.JwtExpireMinutes,
+                    RefreshToken = refreshToken,
+                    RefreshTokenExpireDays = jwtConfiguration.JwtRefreshExpireDays,
+                };
 
-            apiResult = APIResultFactory.Build<LoginResponseDto>(true, StatusCodes.Status200OK,
-               "", payload: LoginResponseDTO);
-            loggerHelper.SendLog(() =>
-            {
-                logger.LogDebug("登入成功且已經產生 Access Token {apiResult}",
-                    JsonConvert.SerializeObject(apiResult));
-            }, EngineerModeCodeEnum.登出登入);
+                apiResult = APIResultFactory.Build<LoginResponseDto>(true, StatusCodes.Status200OK,
+                   "", payload: LoginResponseDTO);
+                loggerHelper.SendLog(() =>
+                {
+                    logger.LogDebug("登入成功且已經產生 Access Token {apiResult}",
+                        JsonConvert.SerializeObject(apiResult));
+                }, EngineerModeCodeEnum.登出登入);
+            }
+
             return Ok(apiResult);
 
         }
