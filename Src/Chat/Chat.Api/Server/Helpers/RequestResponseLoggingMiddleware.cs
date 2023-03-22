@@ -34,6 +34,7 @@ public class RequestResponseLoggingMiddleware
     {
         try
         {
+            DateTime begin = DateTime.Now;
             // 記錄 HTTP 請求
             await LogRequest(context);
 
@@ -41,7 +42,7 @@ public class RequestResponseLoggingMiddleware
             await next(context);
 
             // 記錄 HTTP 回應
-            await LogResponse(context);
+            await LogResponse(context, begin);
         }
         catch (Exception ex)
         {
@@ -58,24 +59,24 @@ public class RequestResponseLoggingMiddleware
         var headers = request.Headers;
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append($"[{method}] {url}{Environment.NewLine}");
-        stringBuilder.Append($"Headers{Environment.NewLine}");
-        foreach (var item in headers)
-        {
-            stringBuilder.Append($"{item.Key} : {item.Value}{Environment.NewLine}");
-        }
-        var bodyContent = await new StreamReader(body).ReadToEndAsync();
-        stringBuilder.Append($"{Environment.NewLine}");
-        stringBuilder.Append($"{bodyContent}{Environment.NewLine}");
-        stringBuilder.Append($"{Environment.NewLine}");
+        stringBuilder.Append($"{url} [{method}] Id={context.TraceIdentifier}");
+        //stringBuilder.Append($"Headers{Environment.NewLine}");
+        //foreach (var item in headers)
+        //{
+        //    stringBuilder.Append($"{item.Key} : {item.Value}{Environment.NewLine}");
+        //}
+        //var bodyContent = await new StreamReader(body).ReadToEndAsync();
+        //stringBuilder.Append($"{Environment.NewLine}");
+        //stringBuilder.Append($"{bodyContent}{Environment.NewLine}");
+        //stringBuilder.Append($"{Environment.NewLine}");
 
         loggerHelper.SendLog(() =>
         {
-            logger.LogDebug($"{stringBuilder.ToString()}");
+            logger.LogDebug($"HTTP Request {stringBuilder.ToString()}");
         }, EngineerModeCodeEnum.HTTP請求與回應);
     }
 
-    private async Task LogResponse(HttpContext context)
+    private async Task LogResponse(HttpContext context, DateTime begin)
     {
         // 取得 HTTP 回應的詳細資訊
         var request = context.Request;
@@ -85,28 +86,29 @@ public class RequestResponseLoggingMiddleware
         var body = response.Body;
         var headers = context.Response.Headers;
 
+        TimeSpan elapseTime = DateTime.Now - begin;
+
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.Append($"[{method}] {url}{Environment.NewLine}");
+        stringBuilder.Append($"{url} [{method}] Id={context.TraceIdentifier}{Environment.NewLine}");
         stringBuilder.Append($"Response Status Code: {response.StatusCode}{Environment.NewLine}");
+        stringBuilder.Append($"HTTP Prcessing Time: {elapseTime.TotalMilliseconds} ms");
 
-        //if(context.Response.)
+        //stringBuilder.Append($"Headers{Environment.NewLine}");
+        //foreach (var item in headers)
+        //{
+        //    stringBuilder.Append($"{item.Key} : {item.Value}{Environment.NewLine}");
+        //}
 
-        stringBuilder.Append($"Headers{Environment.NewLine}");
-        foreach (var item in headers)
-        {
-            stringBuilder.Append($"{item.Key} : {item.Value}{Environment.NewLine}");
-        }
-
-        response.Body.Seek(0, SeekOrigin.Begin);
-        string responseBody = await new StreamReader(response.Body).ReadToEndAsync();
-        response.Body.Seek(0, SeekOrigin.Begin);
-        stringBuilder.Append($"{responseBody}{Environment.NewLine}");
-        stringBuilder.Append($"{Environment.NewLine}");
+        //response.Body.Seek(0, SeekOrigin.Begin);
+        //string responseBody = await new StreamReader(response.Body).ReadToEndAsync();
+        //response.Body.Seek(0, SeekOrigin.Begin);
+        //stringBuilder.Append($"{responseBody}{Environment.NewLine}");
+        //stringBuilder.Append($"{Environment.NewLine}");
 
         loggerHelper.SendLog(() =>
         {
-            logger.LogDebug($"{stringBuilder.ToString()}");
+            logger.LogDebug($"HTTP Response {stringBuilder.ToString()}");
         }, EngineerModeCodeEnum.HTTP請求與回應);
     }
 }
