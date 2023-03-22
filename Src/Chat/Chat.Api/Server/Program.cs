@@ -176,6 +176,7 @@ try
     #region 工程除錯模式用服務
     builder.Services.AddSingleton<EngineerModeData>(new EngineerModeData());
     builder.Services.AddTransient<LoggerHelper>();
+    //builder.Services.AddTransient<RequestResponseLoggingMiddleware>();
     #endregion
 
     #endregion
@@ -250,6 +251,10 @@ try
         app.UseHttpsRedirection();
         #endregion
     }
+    #endregion
+
+    #region 嵌入 HTTP Request / Response 的 Logging
+    app.UseRequestResponseLogging();
     #endregion
 
     #region 使用 CORS

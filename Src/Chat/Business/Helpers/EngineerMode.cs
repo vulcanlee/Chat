@@ -20,5 +20,6 @@ public enum EngineerModeCodeEnum
     讀卡機操作 = 4,
     MQTT = 8,
     呼叫WebAPI = 16,
-    All = 登出登入 | 資料庫存取 | 讀卡機操作 | MQTT | 呼叫WebAPI
+    HTTP請求與回應 = 32,
+    All = 登出登入 | 資料庫存取 | 讀卡機操作 | MQTT | 呼叫WebAPI | HTTP請求與回應
 }
