@@ -50,9 +50,9 @@ namespace Chat.Api.Controllers
         public async Task<ActionResult<APIResult<LoginResponseDto>>>
             Post(LoginRequestDto loginRequestDTO)
         {
-            APIResult<LoginResponseDto> apiResult;
             using (var perf = PerformanceMeter<LoginController>.StartWatch(logger, loggerHelper, "登入 API"))
             {
+                APIResult<LoginResponseDto> apiResult;
                 await Task.Yield();
                 loggerHelper.SendLog(() =>
                 {
@@ -131,9 +131,9 @@ namespace Chat.Api.Controllers
                     logger.LogDebug("登入成功且已經產生 Access Token {apiResult}",
                         JsonConvert.SerializeObject(apiResult));
                 }, EngineerModeCodeEnum.登出登入);
-            }
 
-            return Ok(apiResult);
+                return Ok(apiResult);
+            }
 
         }
 
