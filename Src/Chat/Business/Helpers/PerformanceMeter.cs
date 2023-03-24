@@ -28,10 +28,16 @@ namespace Business.Helpers
         }
 
         public DateTime Begin { get; set; } = DateTime.Now;
+        public DateTime Completion { get; set; } = DateTime.Now;
+
+        public void ResetBegin()=>Begin = DateTime.Now;
+
+        public void ResetCompletion()=>Completion = DateTime.Now;
+
         public void Dispose()
         {
-            DateTime completion = DateTime.Now;
-            TimeSpan estimatedTime = completion - Begin;
+            ResetCompletion();
+            TimeSpan estimatedTime = Completion - Begin;
 
             loggerHelper.SendLog(() =>
             {
