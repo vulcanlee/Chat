@@ -176,12 +176,18 @@ try
     #region 工程除錯模式用服務
     builder.Services.AddSingleton<EngineerModeData>(new EngineerModeData());
     builder.Services.AddTransient<LoggerHelper>();
+    builder.Services.AddSingleton<OSPerformanceLoggingHelper>();
     //builder.Services.AddTransient<RequestResponseLoggingMiddleware>();
     #endregion
 
     #endregion
 
     var app = builder.Build();
+
+    #region 系統效能數據蒐集的準備工作
+    var osPerformanceLoggingHelper = app.Services.GetService<OSPerformanceLoggingHelper>();
+    await osPerformanceLoggingHelper.Prepare();
+    #endregion
 
     #region 宣告管道與中介軟體
 

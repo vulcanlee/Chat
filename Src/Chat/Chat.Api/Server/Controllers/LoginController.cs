@@ -26,17 +26,20 @@ namespace Chat.Api.Controllers
         private readonly JwtGenerateHelper jwtGenerateHelper;
         private readonly ILogger<LoginController> logger;
         private readonly LoggerHelper loggerHelper;
+        private readonly OSPerformanceLoggingHelper osPerformanceLoggingHelper;
         private readonly JwtConfiguration jwtConfiguration;
 
         public LoginController(IUserAuthService userService, IMapper mapper,
             JwtGenerateHelper jwtGenerateHelper, IOptions<JwtConfiguration> jwtConfiguration,
-            ILogger<LoginController> logger, LoggerHelper loggerHelper)
+            ILogger<LoginController> logger, LoggerHelper loggerHelper,
+            OSPerformanceLoggingHelper osPerformanceLoggingHelper)
         {
             this.userService = userService;
             this.mapper = mapper;
             this.jwtGenerateHelper = jwtGenerateHelper;
             this.logger = logger;
             this.loggerHelper = loggerHelper;
+            this.osPerformanceLoggingHelper = osPerformanceLoggingHelper;
             this.jwtConfiguration = jwtConfiguration.Value;
 
             loggerHelper.SendLog(() =>
@@ -58,6 +61,8 @@ namespace Chat.Api.Controllers
                 {
                     logger.LogInformation($"執行登入 Post()");
                 }, EngineerModeCodeEnum.登出登入);
+
+                osPerformanceLoggingHelper.LogPerformance();
 
                 //throw new NotImplementedException();
                 if (ModelState.IsValid == false)

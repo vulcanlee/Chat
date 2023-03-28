@@ -41,7 +41,8 @@ namespace Business.Helpers
 
             loggerHelper.SendLog(() =>
             {
-                logger.LogDebug($"{message} Estimated Time: {estimatedTime.TotalMilliseconds} ({Begin}-{completion}");
+                logger.LogDebug($"{message} Estimated Time: {estimatedTime.TotalMilliseconds} " +
+                    $"({Begin}-{Completion}");
             }, EngineerModeCodeEnum.Method執行速度);
         }
     }
